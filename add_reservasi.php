@@ -15,11 +15,11 @@
             <label for="reservation_time">Waktu Reservasi:</label>
             <input type="text" id="reservation_time" name="reservation_time" required> <!-- Input waktu reservasi -->
 
-            <label for="number_of_guests">Jumlah Tamu:</label>
-            <input type="text" id="number_of_guests" name="number_of_guests" required> <!-- Input jumlah tamu -->
+            <label for="number_of_people">Jumlah Orang:</label>
+            <input type="text" id="number_of_people" name="number_of_people" required> <!-- Input jumlah orang -->
 
-            <label for="special_requests">Permintaan Khusus:</label>
-            <input type="text" id="special_requests" name="special_requests" required> <!-- Input permintaan khusus -->
+            <label for="status">Status:</label>
+            <input type="text" id="status" name="status" required> <!-- Input status -->
 
             <input type="submit" value="Tambah"> <!-- Tombol kirim -->
         </form>

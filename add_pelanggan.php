@@ -16,7 +16,7 @@
             <input type="text" id="last_name" name="last_name" required> <!-- Input nama belakang -->
 
             <label for="email">Email:</label>
-            <input type="text" id="email" name="email" required> <!-- Input email -->
+            <input type="email" id="email" name="email" required> <!-- Input email -->
 
             <label for="phone_number">Nomor Telepon:</label>
             <input type="text" id="phone_number" name="phone_number" required> <!-- Input nomor telepon -->

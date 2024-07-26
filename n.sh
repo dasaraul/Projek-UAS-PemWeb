@@ -58,6 +58,36 @@ echo "" >> cssnich/style.css
 echo "form input[type=\"submit\"]:hover {" >> cssnich/style.css
 echo "    background-color: #4cae4c;" >> cssnich/style.css
 echo "}" >> cssnich/style.css
+echo "" >> cssnich/style.css
+echo "/* Gaya untuk navbar */" >> cssnich/style.css
+echo "nav {" >> cssnich/style.css
+echo "    background-color: #333;" >> cssnich/style.css
+echo "    color: white;" >> cssnich/style.css
+echo "    padding: 10px 0;" >> cssnich/style.css
+echo "}" >> cssnich/style.css
+echo "" >> cssnich/style.css
+echo "nav ul {" >> cssnich/style.css
+echo "    list-style-type: none;" >> cssnich/style.css
+echo "    margin: 0;" >> cssnich/style.css
+echo "    padding: 0;" >> cssnich/style.css
+echo "    overflow: hidden;" >> cssnich/style.css
+echo "    text-align: center;" >> cssnich/style.css
+echo "}" >> cssnich/style.css
+echo "" >> cssnich/style.css
+echo "nav ul li {" >> cssnich/style.css
+echo "    display: inline;" >> cssnich/style.css
+echo "}" >> cssnich/style.css
+echo "" >> cssnich/style.css
+echo "nav ul li a {" >> cssnich/style.css
+echo "    color: white;" >> cssnich/style.css
+echo "    padding: 14px 20px;" >> cssnich/style.css
+echo "    text-decoration: none;" >> cssnich/style.css
+echo "    display: inline-block;" >> cssnich/style.css
+echo "}" >> cssnich/style.css
+echo "" >> cssnich/style.css
+echo "nav ul li a:hover {" >> cssnich/style.css
+echo "    background-color: #575757;" >> cssnich/style.css
+echo "}" >> cssnich/style.css
 
 # Membuat file PHP untuk tambah pelanggan
 echo "<!-- add_pelanggan.php -->" > add_pelanggan.php
@@ -78,7 +108,7 @@ echo "            <label for=\"last_name\">Nama Belakang:</label>" >> add_pelang
 echo "            <input type=\"text\" id=\"last_name\" name=\"last_name\" required> <!-- Input nama belakang -->" >> add_pelanggan.php
 echo "" >> add_pelanggan.php
 echo "            <label for=\"email\">Email:</label>" >> add_pelanggan.php
-echo "            <input type=\"text\" id=\"email\" name=\"email\" required> <!-- Input email -->" >> add_pelanggan.php
+echo "            <input type=\"email\" id=\"email\" name=\"email\" required> <!-- Input email -->" >> add_pelanggan.php
 echo "" >> add_pelanggan.php
 echo "            <label for=\"phone_number\">Nomor Telepon:</label>" >> add_pelanggan.php
 echo "            <input type=\"text\" id=\"phone_number\" name=\"phone_number\" required> <!-- Input nomor telepon -->" >> add_pelanggan.php
@@ -173,11 +203,11 @@ echo "" >> add_reservasi.php
 echo "            <label for=\"reservation_time\">Waktu Reservasi:</label>" >> add_reservasi.php
 echo "            <input type=\"text\" id=\"reservation_time\" name=\"reservation_time\" required> <!-- Input waktu reservasi -->" >> add_reservasi.php
 echo "" >> add_reservasi.php
-echo "            <label for=\"number_of_guests\">Jumlah Tamu:</label>" >> add_reservasi.php
-echo "            <input type=\"text\" id=\"number_of_guests\" name=\"number_of_guests\" required> <!-- Input jumlah tamu -->" >> add_reservasi.php
+echo "            <label for=\"number_of_people\">Jumlah Orang:</label>" >> add_reservasi.php
+echo "            <input type=\"text\" id=\"number_of_people\" name=\"number_of_people\" required> <!-- Input jumlah orang -->" >> add_reservasi.php
 echo "" >> add_reservasi.php
-echo "            <label for=\"special_requests\">Permintaan Khusus:</label>" >> add_reservasi.php
-echo "            <input type=\"text\" id=\"special_requests\" name=\"special_requests\" required> <!-- Input permintaan khusus -->" >> add_reservasi.php
+echo "            <label for=\"status\">Status:</label>" >> add_reservasi.php
+echo "            <input type=\"text\" id=\"status\" name=\"status\" required> <!-- Input status -->" >> add_reservasi.php
 echo "" >> add_reservasi.php
 echo "            <input type=\"submit\" value=\"Tambah\"> <!-- Tombol kirim -->" >> add_reservasi.php
 echo "        </form>" >> add_reservasi.php
@@ -185,8 +215,3 @@ echo "        <a href=\"list_reservasi.php\">Kembali ke Daftar Reservasi</a> <!-
 echo "    </div>" >> add_reservasi.php
 echo "</body>" >> add_reservasi.php
 echo "</html>" >> add_reservasi.php
-
-# Menghapus navbar ganda dari index.php
-sed -i '/<nav>/,/<\/nav>/d' index.php
-
-echo "Semua file telah diperbarui."
