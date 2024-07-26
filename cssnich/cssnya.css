@@ -1,49 +1,105 @@
-/* Tambahkan latar belakang gambar ke seluruh halaman */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
-    background-image: url('https://image-0.uhdpaper.com/wallpaper/anime-girl-nun-with-glasses-tongue-out-4k-wallpaper-uhdpaper.com-204@0@k.jpg');
-    background-size: cover; /* Menyesuaikan ukuran gambar latar belakang */
-    background-attachment: fixed; /* Mengatur gambar latar belakang agar tetap di tempat saat scroll */
-    background-position: center; /* Memusatkan gambar latar belakang */
-    color: #fff; /* Warna teks default putih agar kontras dengan latar belakang */
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    color: #333;
 }
 
-/* Tambahkan transparansi pada tabel */
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+label {
+    font-weight: bold;
+}
+
+input, textarea {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+input[type="checkbox"] {
+    width: auto;
+}
+
+input[type="submit"] {
+    background-color: #5cb85c;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 1em;
+    border-radius: 4px;
+}
+
+input[type="submit"]:hover {
+    background-color: #4cae4c;
+}
+
 table {
-    background-color: rgba(255, 255, 255, 0.8); /* Warna latar belakang putih dengan transparansi 80% */
-    border-collapse: collapse; /* Menghindari spasi ganda di antara border sel tabel */
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
 }
 
-th, td {
-    border: 1px solid #ddd; /* Warna border sel tabel */
-    padding: 8px; /* Jarak antara isi sel dan border */
+table th, table td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
 }
 
-/* Atur warna header tabel */
-th {
-    background-color: rgba(200, 200, 200, 0.8); /* Warna latar belakang header tabel dengan transparansi 80% */
+table th {
+    background-color: #f4f4f4;
 }
 
-/* Atur warna baris tabel saat hover */
-tr:nth-child(even) {
-    background-color: rgba(240, 240, 240, 0.8); /* Warna latar belakang baris genap dengan transparansi 80% */
+a {
+    color: #337ab7;
+    text-decoration: none;
 }
 
-tr:hover {
-    background-color: rgba(255, 255, 255, 0.6); /* Warna latar belakang baris saat hover dengan transparansi 60% */
+a:hover {
+    text-decoration: underline;
 }
 
-/* Styling navbar */
 .navbar {
-    background-color: rgba(0, 0, 0, 0.7); /* Latar belakang navbar dengan transparansi 70% */
-    padding: 10px; /* Jarak di dalam navbar */
+    background-color: #333;
+    overflow: hidden;
 }
 
 .navbar a {
-    color: #fff; /* Warna teks link navbar putih */
-    text-decoration: none; /* Menghapus garis bawah pada link */
-    margin: 0 15px; /* Jarak horizontal antara link */
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
 }
 
 .navbar a:hover {
-    text-decoration: underline; /* Garis bawah saat hover pada link */
+    background-color: #ddd;
+    color: black;
+}
+
+.navbar .active {
+    background-color: #4CAF50;
+    color: white;
 }

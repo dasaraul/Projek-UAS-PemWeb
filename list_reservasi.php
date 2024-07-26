@@ -1,8 +1,8 @@
 <?php
-session_start();
-require_once("bwatkonek.php");
+session_start(); // Mulai sesi, agar bisa menggunakan variabel sesi
+require_once("bwatkonek.php"); // Menghubungkan ke file koneksi database
 
-// Ambil data reservasi
+// Ambil data reservasi dari database
 $reservationsResult = mysqli_query($mysqli, "SELECT * FROM reservations ORDER BY reservation_id DESC");
 ?>
 
@@ -10,47 +10,48 @@ $reservationsResult = mysqli_query($mysqli, "SELECT * FROM reservations ORDER BY
 <html>
 <head>
     <title>List Reservasi</title>
-    <link rel="stylesheet" type="text/css" href="cssnich/cssnya.css"> <!-- Link ke CSS -->
+    <link rel="stylesheet" type="text/css" href="cssnich/cssnya.css"> <!-- Link ke file CSS -->
 </head>
 <body>
     <div class="navbar">
-        <a href="index.php">Home</a>
-        <a href="list_pelanggan.php">Daftar Pelanggan</a>
-        <a href="list_order.php">Daftar Order</a>
-        <a href="list_menu.php">Daftar Menu</a>
-        <?php if (isset($_SESSION['loggedin'])): ?>
-            <a href="logout.php">Logout</a>
+        <a href="index.php">Beranda</a> <!-- Link ke halaman beranda -->
+        <a href="list_pelanggan.php">Daftar Pelanggan</a> <!-- Link ke halaman daftar pelanggan -->
+        <a href="list_order.php">Daftar Order</a> <!-- Link ke halaman daftar order -->
+        <a href="list_menu.php">Daftar Menu</a> <!-- Link ke halaman daftar menu -->
+        <?php if (isset($_SESSION['loggedin'])): ?> <!-- Cek apakah pengguna sudah login -->
+            <a href="logout.php">Keluar</a> <!-- Link untuk logout -->
         <?php else: ?>
-            <a href="login.php">Login</a>
+            <a href="login.php">Masuk</a> <!-- Link untuk login jika belum login -->
         <?php endif; ?>
     </div>
 
     <div class="container">
-        <h2>List Reservasi</h2>
-        <?php if (isset($_SESSION['loggedin'])): ?>
-            <a href="add_reservasi.php">Tambah Reservasi</a>
+        <h2>Daftar Reservasi</h2> <!-- Judul halaman -->
+        <?php if (isset($_SESSION['loggedin'])): ?> <!-- Cek jika pengguna sudah login -->
+            <a href="add_reservasi.php">Tambah Reservasi</a> <!-- Link untuk menambah reservasi -->
         <?php endif; ?>
         <table width='100%' border=0>
-            <tr bgcolor='#DDDDDD'>
-                <th>Reservation Date</th>
-                <th>Reservation Time</th>
-                <th>Number of Guests</th>
-                <th>Special Requests</th>
-                <?php if (isset($_SESSION['loggedin'])): ?>
-                    <th>Aksi</th>
+            <tr bgcolor='#DDDDDD'> <!-- Baris header tabel dengan background abu-abu -->
+                <th>Tanggal Reservasi</th> <!-- Kolom untuk tanggal reservasi -->
+                <th>Waktu Reservasi</th> <!-- Kolom untuk waktu reservasi -->
+                <th>Jumlah Tamu</th> <!-- Kolom untuk jumlah tamu -->
+                <th>Permintaan Khusus</th> <!-- Kolom untuk permintaan khusus -->
+                <?php if (isset($_SESSION['loggedin'])): ?> <!-- Cek jika pengguna sudah login -->
+                    <th>Aksi</th> <!-- Kolom untuk aksi seperti edit dan hapus -->
                 <?php endif; ?>
             </tr>
             <?php
+            // Loop untuk menampilkan data reservasi
             while ($res = mysqli_fetch_assoc($reservationsResult)) {
-                echo "<tr>";
-                echo "<td>".$res['reservation_date']."</td>";
-                echo "<td>".$res['reservation_time']."</td>";
-                echo "<td>".$res['number_of_guests']."</td>";
-                echo "<td>".$res['special_requests']."</td>";
-                if (isset($_SESSION['loggedin'])) {
-                    echo "<td><a href='edit_reservasi.php?id=".$res['reservation_id']."'>Edit</a> | <a href='delete_reservasi.php?id=".$res['reservation_id']."' onclick='return confirm(\"Are you sure?\")'>Hapus</a></td>";
+                echo "<tr>"; // Mulai baris baru di tabel
+                echo "<td>".$res['reservation_date']."</td>"; // Tanggal reservasi
+                echo "<td>".$res['reservation_time']."</td>"; // Waktu reservasi
+                echo "<td>".$res['number_of_guests']."</td>"; // Jumlah tamu
+                echo "<td>".$res['special_requests']."</td>"; // Permintaan khusus
+                if (isset($_SESSION['loggedin'])) { // Cek jika pengguna sudah login
+                    echo "<td><a href='edit_reservasi.php?id=".$res['reservation_id']."'>Edit</a> | <a href='delete_reservasi.php?id=".$res['reservation_id']."' onclick='return confirm(\"Yakin ingin menghapus?\")'>Hapus</a></td>"; // Link untuk edit dan hapus
                 }
-                echo "</tr>";
+                echo "</tr>"; // Akhir baris tabel
             }
             ?>
         </table>
