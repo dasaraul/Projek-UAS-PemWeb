@@ -1,9 +1,18 @@
 <?php
-// Mengecek apakah pengguna sudah login
-session_start();
-if (!isset($_SESSION['loggedin'])) {
-    header('Location: login.php');
-    exit;
+require_once("bwatkonek.php");
+
+if (isset($_POST['submit'])) {
+    $item_name = $_POST['item_name'];
+    $description = $_POST['description'];
+    $price = $_POST['price'];
+    $category = $_POST['category'];
+    $available = isset($_POST['available']) ? 1 : 0;
+
+    // Query untuk menambah data menu
+    $query = "INSERT INTO menu_items (item_name, description, price, category, available) VALUES ('$item_name', '$description', '$price', '$category', '$available')";
+    mysqli_query($mysqli, $query);
+
+    header("Location: list_menu.php"); // Arahkan ke halaman daftar menu setelah berhasil
 }
 ?>
 
@@ -11,52 +20,33 @@ if (!isset($_SESSION['loggedin'])) {
 <html>
 <head>
     <title>Tambah Menu</title>
-    <link rel="stylesheet" type="text/css" href="cssnich/cssnya.css">
+    <link rel="stylesheet" type="text/css" href="cssnich/cssnya.css"> <!-- Link ke CSS -->
 </head>
 <body>
-    <div class="navbar">
-        <a href="dashboard.php">Home</a>
-        <a href="list_pelanggan.php">Daftar Pelanggan</a>
-        <a href="list_order.php">Daftar Order</a>
-        <a href="list_reservasi.php">Daftar Reservasi</a>
-        <a href="list_menu.php">Daftar Menu</a>
-        <a href="logout.php">Logout</a>
-    </div>
-
     <div class="container">
-        <h2>Tambah Menu</h2>
-        <form action="add_menu_action.php" method="post">
-            <table>
-                <tr>
-                    <td>Nama Item:</td>
-                    <td><input type="text" name="item_name" required></td>
-                </tr>
-                <tr>
-                    <td>Deskripsi:</td>
-                    <td><textarea name="description" required></textarea></td>
-                </tr>
-                <tr>
-                    <td>Harga:</td>
-                    <td><input type="number" step="0.01" name="price" required></td>
-                </tr>
-                <tr>
-                    <td>Kategori:</td>
-                    <td><input type="text" name="category" required></td>
-                </tr>
-                <tr>
-                    <td>Tersedia:</td>
-                    <td>
-                        <select name="available">
-                            <option value="1">Ya</option>
-                            <option value="0">Tidak</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td><input type="submit" value="Tambah"></td>
-                </tr>
-            </table>
+        <h1>Tambah Menu</h1>
+        <form method="POST" action="">
+            <label for="item_name">Item Name:</label>
+            <input type="text" name="item_name" required>
+            <br>
+
+            <label for="description">Description:</label>
+            <textarea name="description" required></textarea>
+            <br>
+
+            <label for="price">Price:</label>
+            <input type="number" step="0.01" name="price" required>
+            <br>
+
+            <label for="category">Category:</label>
+            <input type="text" name="category" required>
+            <br>
+
+            <label for="available">Available:</label>
+            <input type="checkbox" name="available" value="1">
+            <br>
+
+            <input type="submit" name="submit" value="Tambah">
         </form>
     </div>
 </body>

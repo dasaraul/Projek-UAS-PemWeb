@@ -1,9 +1,11 @@
 <?php
-session_start();
 require_once("bwatkonek.php");
 
 $id = $_GET['id'];
-$result = mysqli_query($mysqli, "DELETE FROM customers WHERE customer_id=$id");
 
-header("Location: list_pelanggan.php");
+// Query untuk menghapus data pelanggan
+$query = "DELETE FROM customers WHERE customer_id=$id";
+mysqli_query($mysqli, $query);
+
+header("Location: list_pelanggan.php"); // Arahkan ke halaman daftar pelanggan setelah berhasil
 ?>
