@@ -9,32 +9,30 @@ $ordersResult = mysqli_query($mysqli, "SELECT * FROM orders ORDER BY order_id DE
 <!DOCTYPE html>
 <html>
 <head>
-    <title>List Order</title>
+    <title>Daftar Order</title>
     <link rel="stylesheet" type="text/css" href="cssnich/cssnya.css"> <!-- Link ke CSS -->
 </head>
 <body>
     <div class="navbar">
-        <a href="index.php">Home</a>
+        <a href="index.php">Beranda</a>
         <a href="list_pelanggan.php">Daftar Pelanggan</a>
         <a href="list_reservasi.php">Daftar Reservasi</a>
         <a href="list_menu.php">Daftar Menu</a>
         <?php if (isset($_SESSION['loggedin'])): ?>
-            <a href="logout.php">Logout</a>
+            <a href="logout.php">Keluar</a>
         <?php else: ?>
-            <a href="login.php">Login</a>
+            <a href="login.php">Masuk</a>
         <?php endif; ?>
     </div>
 
     <div class="container">
-        <h2>List Order</h2>
-        <?php if (isset($_SESSION['loggedin'])): ?>
-            <a href="add_order.php">Tambah Order</a>
-        <?php endif; ?>
+        <h2>Daftar Order</h2>
+        <a href="add_order.php">Tambah Order</a>
         <table width='100%' border=0>
             <tr bgcolor='#DDDDDD'>
-                <th>Order Date</th>
-                <th>Order Time</th>
-                <th>Total Amount</th>
+                <th>Tanggal Order</th>
+                <th>Waktu Order</th>
+                <th>Total Jumlah</th>
                 <th>Status</th>
                 <?php if (isset($_SESSION['loggedin'])): ?>
                     <th>Aksi</th>
@@ -48,7 +46,7 @@ $ordersResult = mysqli_query($mysqli, "SELECT * FROM orders ORDER BY order_id DE
                 echo "<td>".$res['total_amount']."</td>";
                 echo "<td>".$res['status']."</td>";
                 if (isset($_SESSION['loggedin'])) {
-                    echo "<td><a href='edit_order.php?id=".$res['order_id']."'>Edit</a> | <a href='delete_order.php?id=".$res['order_id']."' onclick='return confirm(\"Are you sure?\")'>Hapus</a></td>";
+                    echo "<td><a href='edit_order.php?id=".$res['order_id']."'>Edit</a> | <a href='delete_order.php?id=".$res['order_id']."' onclick='return confirm(\"Yakin ingin menghapus?\")'>Hapus</a></td>";
                 }
                 echo "</tr>";
             }

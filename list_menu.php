@@ -9,34 +9,32 @@ $menuItemsResult = mysqli_query($mysqli, "SELECT * FROM menu_items ORDER BY menu
 <!DOCTYPE html>
 <html>
 <head>
-    <title>List Menu</title>
+    <title>Daftar Menu</title>
     <link rel="stylesheet" type="text/css" href="cssnich/cssnya.css"> <!-- Link ke CSS -->
 </head>
 <body>
     <div class="navbar">
-        <a href="index.php">Home</a>
+        <a href="index.php">Beranda</a>
         <a href="list_pelanggan.php">Daftar Pelanggan</a>
         <a href="list_order.php">Daftar Order</a>
         <a href="list_reservasi.php">Daftar Reservasi</a>
         <?php if (isset($_SESSION['loggedin'])): ?>
-            <a href="logout.php">Logout</a>
+            <a href="logout.php">Keluar</a>
         <?php else: ?>
-            <a href="login.php">Login</a>
+            <a href="login.php">Masuk</a>
         <?php endif; ?>
     </div>
 
     <div class="container">
-        <h2>List Menu</h2>
-        <?php if (isset($_SESSION['loggedin'])): ?>
-            <a href="add_menu.php">Tambah Menu</a>
-        <?php endif; ?>
+        <h2>Daftar Menu</h2>
+        <a href="add_menu.php">Tambah Menu</a>
         <table width='100%' border=0>
             <tr bgcolor='#DDDDDD'>
-                <th>Item Name</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Category</th>
-                <th>Available</th>
+                <th>Nama Item</th>
+                <th>Deskripsi</th>
+                <th>Harga</th>
+                <th>Kategori</th>
+                <th>Tersedia</th>
                 <?php if (isset($_SESSION['loggedin'])): ?>
                     <th>Aksi</th>
                 <?php endif; ?>
@@ -48,9 +46,9 @@ $menuItemsResult = mysqli_query($mysqli, "SELECT * FROM menu_items ORDER BY menu
                 echo "<td>".$res['description']."</td>";
                 echo "<td>".$res['price']."</td>";
                 echo "<td>".$res['category']."</td>";
-                echo "<td>".($res['available'] ? 'Yes' : 'No')."</td>";
+                echo "<td>".($res['available'] ? 'Ya' : 'Tidak')."</td>";
                 if (isset($_SESSION['loggedin'])) {
-                    echo "<td><a href='edit_menu.php?id=".$res['menu_item_id']."'>Edit</a> | <a href='delete_menu.php?id=".$res['menu_item_id']."' onclick='return confirm(\"Are you sure?\")'>Hapus</a></td>";
+                    echo "<td><a href='edit_menu.php?id=".$res['menu_item_id']."'>Edit</a> | <a href='delete_menu.php?id=".$res['menu_item_id']."' onclick='return confirm(\"Yakin ingin menghapus?\")'>Hapus</a></td>";
                 }
                 echo "</tr>";
             }
