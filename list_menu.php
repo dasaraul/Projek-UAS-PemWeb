@@ -50,5 +50,6 @@ $result = mysqli_query($mysqli, "SELECT * FROM menu_items ORDER BY menu_item_id 
         ?>
     </table>
 </div>
+<a href="add_action.php">Tambah Menu</a>
 </body>
 </html>

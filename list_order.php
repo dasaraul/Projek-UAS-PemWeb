@@ -54,5 +54,6 @@ $result = mysqli_query($mysqli, "SELECT * FROM orders ORDER BY order_id DESC");
             ?>
         </table>
     </div>
+<a href="add_action.php">Tambah Order</a>
 </body>
 </html>

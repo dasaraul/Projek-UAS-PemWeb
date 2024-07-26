@@ -54,5 +54,6 @@ $result = mysqli_query($mysqli, "SELECT * FROM reservations ORDER BY reservation
             ?>
         </table>
     </div>
+<a href="add_action.php">Tambah Reservasi</a>
 </body>
 </html>

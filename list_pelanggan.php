@@ -52,5 +52,6 @@ $result = mysqli_query($mysqli, "SELECT * FROM customers ORDER BY customer_id DE
             ?>
         </table>
     </div>
+<a href="add_action.php">Tambah Pelanggan</a>
 </body>
 </html>

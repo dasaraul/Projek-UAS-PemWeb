@@ -1,66 +1,51 @@
-#!/bin/bash
-
-# Path ke direktori proyek Anda
-PROJECT_DIR="C:\xampp\htdocs\uas-pemweb"
-
-# Masuk ke direktori proyek
-cd $PROJECT_DIR || { echo "Direktori tidak ditemukan"; exit 1; }
-
-# Ubah link Home di dashboard.php
-echo "Mengubah link Home di dashboard.php..."
-sed -i 's|href="dashboard.php"|href="index.php"|' dashboard.php
-
-# Buat file add_action.php untuk mengelola penambahan data
-echo "Membuat file add_action.php..."
-cat > add_action.php <<EOF
 <?php
 session_start();
 require_once("bwatkonek.php");
 
 // Fungsi untuk menambah data ke tabel pelanggan
-if (isset(\$_POST['add_customer'])) {
-    \$first_name = mysqli_real_escape_string(\$mysqli, \$_POST['first_name']);
-    \$last_name = mysqli_real_escape_string(\$mysqli, \$_POST['last_name']);
-    \$email = mysqli_real_escape_string(\$mysqli, \$_POST['email']);
-    \$phone_number = mysqli_real_escape_string(\$mysqli, \$_POST['phone_number']);
+if (isset($_POST['add_customer'])) {
+    $first_name = mysqli_real_escape_string($mysqli, $_POST['first_name']);
+    $last_name = mysqli_real_escape_string($mysqli, $_POST['last_name']);
+    $email = mysqli_real_escape_string($mysqli, $_POST['email']);
+    $phone_number = mysqli_real_escape_string($mysqli, $_POST['phone_number']);
 
-    mysqli_query(\$mysqli, "INSERT INTO customers (first_name, last_name, email, phone_number) VALUES ('\$first_name', '\$last_name', '\$email', '\$phone_number')");
+    mysqli_query($mysqli, "INSERT INTO customers (first_name, last_name, email, phone_number) VALUES ('$first_name', '$last_name', '$email', '$phone_number')");
     header("Location: list_pelanggan.php");
 }
 
 // Fungsi untuk menambah data ke tabel order
-if (isset(\$_POST['add_order'])) {
-    \$customer_id = mysqli_real_escape_string(\$mysqli, \$_POST['customer_id']);
-    \$order_date = mysqli_real_escape_string(\$mysqli, \$_POST['order_date']);
-    \$order_time = mysqli_real_escape_string(\$mysqli, \$_POST['order_time']);
-    \$total_amount = mysqli_real_escape_string(\$mysqli, \$_POST['total_amount']);
-    \$status = mysqli_real_escape_string(\$mysqli, \$_POST['status']);
+if (isset($_POST['add_order'])) {
+    $customer_id = mysqli_real_escape_string($mysqli, $_POST['customer_id']);
+    $order_date = mysqli_real_escape_string($mysqli, $_POST['order_date']);
+    $order_time = mysqli_real_escape_string($mysqli, $_POST['order_time']);
+    $total_amount = mysqli_real_escape_string($mysqli, $_POST['total_amount']);
+    $status = mysqli_real_escape_string($mysqli, $_POST['status']);
 
-    mysqli_query(\$mysqli, "INSERT INTO orders (customer_id, order_date, order_time, total_amount, status) VALUES ('\$customer_id', '\$order_date', '\$order_time', '\$total_amount', '\$status')");
+    mysqli_query($mysqli, "INSERT INTO orders (customer_id, order_date, order_time, total_amount, status) VALUES ('$customer_id', '$order_date', '$order_time', '$total_amount', '$status')");
     header("Location: list_order.php");
 }
 
 // Fungsi untuk menambah data ke tabel reservasi
-if (isset(\$_POST['add_reservation'])) {
-    \$customer_id = mysqli_real_escape_string(\$mysqli, \$_POST['customer_id']);
-    \$reservation_date = mysqli_real_escape_string(\$mysqli, \$_POST['reservation_date']);
-    \$reservation_time = mysqli_real_escape_string(\$mysqli, \$_POST['reservation_time']);
-    \$number_of_guests = mysqli_real_escape_string(\$mysqli, \$_POST['number_of_guests']);
-    \$special_requests = mysqli_real_escape_string(\$mysqli, \$_POST['special_requests']);
+if (isset($_POST['add_reservation'])) {
+    $customer_id = mysqli_real_escape_string($mysqli, $_POST['customer_id']);
+    $reservation_date = mysqli_real_escape_string($mysqli, $_POST['reservation_date']);
+    $reservation_time = mysqli_real_escape_string($mysqli, $_POST['reservation_time']);
+    $number_of_guests = mysqli_real_escape_string($mysqli, $_POST['number_of_guests']);
+    $special_requests = mysqli_real_escape_string($mysqli, $_POST['special_requests']);
 
-    mysqli_query(\$mysqli, "INSERT INTO reservations (customer_id, reservation_date, reservation_time, number_of_guests, special_requests) VALUES ('\$customer_id', '\$reservation_date', '\$reservation_time', '\$number_of_guests', '\$special_requests')");
+    mysqli_query($mysqli, "INSERT INTO reservations (customer_id, reservation_date, reservation_time, number_of_guests, special_requests) VALUES ('$customer_id', '$reservation_date', '$reservation_time', '$number_of_guests', '$special_requests')");
     header("Location: list_reservasi.php");
 }
 
 // Fungsi untuk menambah data ke tabel menu
-if (isset(\$_POST['add_menu_item'])) {
-    \$item_name = mysqli_real_escape_string(\$mysqli, \$_POST['item_name']);
-    \$description = mysqli_real_escape_string(\$mysqli, \$_POST['description']);
-    \$price = mysqli_real_escape_string(\$mysqli, \$_POST['price']);
-    \$category = mysqli_real_escape_string(\$mysqli, \$_POST['category']);
-    \$available = mysqli_real_escape_string(\$mysqli, \$_POST['available']);
+if (isset($_POST['add_menu_item'])) {
+    $item_name = mysqli_real_escape_string($mysqli, $_POST['item_name']);
+    $description = mysqli_real_escape_string($mysqli, $_POST['description']);
+    $price = mysqli_real_escape_string($mysqli, $_POST['price']);
+    $category = mysqli_real_escape_string($mysqli, $_POST['category']);
+    $available = mysqli_real_escape_string($mysqli, $_POST['available']);
 
-    mysqli_query(\$mysqli, "INSERT INTO menu_items (item_name, description, price, category, available) VALUES ('\$item_name', '\$description', '\$price', '\$category', '\$available')");
+    mysqli_query($mysqli, "INSERT INTO menu_items (item_name, description, price, category, available) VALUES ('$item_name', '$description', '$price', '$category', '$available')");
     header("Location: list_menu.php");
 }
 ?>
@@ -206,21 +191,3 @@ if (isset(\$_POST['add_menu_item'])) {
     </div>
 </body>
 </html>
-EOF
-
-# Tambahkan link aksi di setiap halaman list
-echo "Menambahkan link aksi di halaman list..."
-
-# Menambahkan link aksi di list_pelanggan.php
-sed -i '/<\/body>/i <a href="add_action.php">Tambah Pelanggan</a>' list_pelanggan.php
-
-# Menambahkan link aksi di list_order.php
-sed -i '/<\/body>/i <a href="add_action.php">Tambah Order</a>' list_order.php
-
-# Menambahkan link aksi di list_reservasi.php
-sed -i '/<\/body>/i <a href="add_action.php">Tambah Reservasi</a>' list_reservasi.php
-
-# Menambahkan link aksi di list_menu.php
-sed -i '/<\/body>/i <a href="add_action.php">Tambah Menu</a>' list_menu.php
-
-echo "Pembaruan selesai!"
