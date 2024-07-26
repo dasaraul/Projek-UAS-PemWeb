@@ -27,7 +27,9 @@ $menuItemsResult = mysqli_query($mysqli, "SELECT * FROM menu_items ORDER BY menu
 
     <div class="container">
         <h2>Daftar Menu</h2>
+        <?php if (isset($_SESSION['loggedin'])): ?> <!-- Cek jika pengguna sudah login -->
         <a href="add_menu.php">Tambah Menu</a>
+        <?php endif; ?>
         <table width='100%' border=0>
             <tr bgcolor='#DDDDDD'>
                 <th>Nama Item</th>

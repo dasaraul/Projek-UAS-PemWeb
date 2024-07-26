@@ -27,7 +27,9 @@ $ordersResult = mysqli_query($mysqli, "SELECT * FROM orders ORDER BY order_id DE
 
     <div class="container">
         <h2>Daftar Order</h2>
+        <?php if (isset($_SESSION['loggedin'])): ?> <!-- Cek jika pengguna sudah login -->
         <a href="add_order.php">Tambah Order</a>
+        <?php endif; ?>
         <table width='100%' border=0>
             <tr bgcolor='#DDDDDD'>
                 <th>Tanggal Order</th>

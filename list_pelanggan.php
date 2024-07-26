@@ -27,7 +27,9 @@ $customersResult = mysqli_query($mysqli, "SELECT * FROM customers ORDER BY custo
 
     <div class="container">
         <h2>Daftar Pelanggan</h2>
+        <?php if (isset($_SESSION['loggedin'])): ?> <!-- Cek jika pengguna sudah login -->
         <a href="add_pelanggan.php">Tambah Pelanggan</a>
+        <?php endif; ?>
         <table width='100%' border=0>
             <tr bgcolor='#DDDDDD'>
                 <th>Nama Depan</th>
