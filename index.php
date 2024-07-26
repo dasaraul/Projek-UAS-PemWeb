@@ -1,6 +1,5 @@
 <?php
 require_once("bwatkonek.php");
-require_once("layout/nav.php");
 session_start(); // Pastikan session dimulai untuk cek login
 
 // Ambil data dari setiap tabel

@@ -1,47 +1,29 @@
-<?php
-require_once("bwatkonek.php");
-
-if (isset($_POST['submit'])) {
-    $reservation_date = $_POST['reservation_date'];
-    $reservation_time = $_POST['reservation_time'];
-    $number_of_guests = $_POST['number_of_guests'];
-    $special_requests = $_POST['special_requests'];
-
-    $query = "INSERT INTO reservations (reservation_date, reservation_time, number_of_guests, special_requests) VALUES ('$reservation_date', '$reservation_time', '$number_of_guests', '$special_requests')";
-    mysqli_query($mysqli, $query);
-
-    header("Location: list_reservasi.php");
-}
-?>
-
+<!-- add_reservasi.php -->
 <!DOCTYPE html>
 <html>
 <head>
     <title>Tambah Reservasi</title>
-    <link rel="stylesheet" type="text/css" href="cssnich/cssnya.css">
+    <link rel="stylesheet" type="text/css" href="cssnich/style.css"> <!-- Tautkan ke file CSS -->
 </head>
 <body>
-    <div class="container">
-        <h1>Tambah Reservasi</h1>
-        <form method="POST" action="">
-            <label for="reservation_date">Reservation Date:</label>
-            <input type="date" name="reservation_date" required>
-            <br>
+    <div class="container"> <!-- Kontainer utama -->
+        <h1>Tambah Reservasi</h1> <!-- Judul halaman -->
+        <form action="add_reservasi_action.php" method="POST"> <!-- Formulir tambah reservasi -->
+            <label for="reservation_date">Tanggal Reservasi:</label>
+            <input type="text" id="reservation_date" name="reservation_date" required> <!-- Input tanggal reservasi -->
 
-            <label for="reservation_time">Reservation Time:</label>
-            <input type="time" name="reservation_time" required>
-            <br>
+            <label for="reservation_time">Waktu Reservasi:</label>
+            <input type="text" id="reservation_time" name="reservation_time" required> <!-- Input waktu reservasi -->
 
-            <label for="number_of_guests">Number of Guests:</label>
-            <input type="number" name="number_of_guests" required>
-            <br>
+            <label for="number_of_guests">Jumlah Tamu:</label>
+            <input type="text" id="number_of_guests" name="number_of_guests" required> <!-- Input jumlah tamu -->
 
-            <label for="special_requests">Special Requests:</label>
-            <textarea name="special_requests"></textarea>
-            <br>
+            <label for="special_requests">Permintaan Khusus:</label>
+            <input type="text" id="special_requests" name="special_requests" required> <!-- Input permintaan khusus -->
 
-            <input type="submit" name="submit" value="Tambah">
+            <input type="submit" value="Tambah"> <!-- Tombol kirim -->
         </form>
+        <a href="list_reservasi.php">Kembali ke Daftar Reservasi</a> <!-- Tautan kembali -->
     </div>
 </body>
 </html>

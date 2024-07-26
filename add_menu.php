@@ -1,52 +1,32 @@
-<?php
-require_once("bwatkonek.php");
-
-if (isset($_POST['submit'])) {
-    $item_name = $_POST['item_name'];
-    $description = $_POST['description'];
-    $price = $_POST['price'];
-    $category = $_POST['category'];
-    $available = isset($_POST['available']) ? 1 : 0;
-
-    $query = "INSERT INTO menu_items (item_name, description, price, category, available) VALUES ('$item_name', '$description', '$price', '$category', '$available')";
-    mysqli_query($mysqli, $query);
-
-    header("Location: list_menu.php");
-}
-?>
-
+<!-- add_menu.php -->
 <!DOCTYPE html>
 <html>
 <head>
     <title>Tambah Menu</title>
-    <link rel="stylesheet" type="text/css" href="cssnich/cssnya.css">
+    <link rel="stylesheet" type="text/css" href="cssnich/style.css"> <!-- Tautkan ke file CSS -->
 </head>
 <body>
-    <div class="container">
-        <h1>Tambah Menu</h1>
-        <form method="POST" action="">
-            <label for="item_name">Item Name:</label>
-            <input type="text" name="item_name" required>
-            <br>
+    <div class="container"> <!-- Kontainer utama -->
+        <h1>Tambah Menu</h1> <!-- Judul halaman -->
+        <form action="add_menu_action.php" method="POST"> <!-- Formulir tambah menu -->
+            <label for="item_name">Nama Item:</label>
+            <input type="text" id="item_name" name="item_name" required> <!-- Input nama item -->
 
-            <label for="description">Description:</label>
-            <textarea name="description"></textarea>
-            <br>
+            <label for="description">Deskripsi:</label>
+            <input type="text" id="description" name="description" required> <!-- Input deskripsi -->
 
-            <label for="price">Price:</label>
-            <input type="number" step="0.01" name="price" required>
-            <br>
+            <label for="price">Harga:</label>
+            <input type="text" id="price" name="price" required> <!-- Input harga -->
 
-            <label for="category">Category:</label>
-            <input type="text" name="category" required>
-            <br>
+            <label for="category">Kategori:</label>
+            <input type="text" id="category" name="category" required> <!-- Input kategori -->
 
-            <label for="available">Available:</label>
-            <input type="checkbox" name="available">
-            <br>
+            <label for="available">Tersedia:</label>
+            <input type="text" id="available" name="available" required> <!-- Input ketersediaan -->
 
-            <input type="submit" name="submit" value="Tambah">
+            <input type="submit" value="Tambah"> <!-- Tombol kirim -->
         </form>
+        <a href="list_menu.php">Kembali ke Daftar Menu</a> <!-- Tautan kembali -->
     </div>
 </body>
 </html>

@@ -1,47 +1,29 @@
-<?php
-require_once("bwatkonek.php");
-
-if (isset($_POST['submit'])) {
-    $order_date = $_POST['order_date'];
-    $order_time = $_POST['order_time'];
-    $total_amount = $_POST['total_amount'];
-    $status = $_POST['status'];
-
-    $query = "INSERT INTO orders (order_date, order_time, total_amount, status) VALUES ('$order_date', '$order_time', '$total_amount', '$status')";
-    mysqli_query($mysqli, $query);
-
-    header("Location: list_order.php");
-}
-?>
-
+<!-- add_order.php -->
 <!DOCTYPE html>
 <html>
 <head>
     <title>Tambah Order</title>
-    <link rel="stylesheet" type="text/css" href="cssnich/cssnya.css">
+    <link rel="stylesheet" type="text/css" href="cssnich/style.css"> <!-- Tautkan ke file CSS -->
 </head>
 <body>
-    <div class="container">
-        <h1>Tambah Order</h1>
-        <form method="POST" action="">
-            <label for="order_date">Order Date:</label>
-            <input type="date" name="order_date" required>
-            <br>
+    <div class="container"> <!-- Kontainer utama -->
+        <h1>Tambah Order</h1> <!-- Judul halaman -->
+        <form action="add_order_action.php" method="POST"> <!-- Formulir tambah order -->
+            <label for="order_date">Tanggal Order:</label>
+            <input type="text" id="order_date" name="order_date" required> <!-- Input tanggal order -->
 
-            <label for="order_time">Order Time:</label>
-            <input type="time" name="order_time" required>
-            <br>
+            <label for="order_time">Waktu Order:</label>
+            <input type="text" id="order_time" name="order_time" required> <!-- Input waktu order -->
 
-            <label for="total_amount">Total Amount:</label>
-            <input type="number" step="0.01" name="total_amount" required>
-            <br>
+            <label for="total_amount">Jumlah Total:</label>
+            <input type="text" id="total_amount" name="total_amount" required> <!-- Input jumlah total -->
 
             <label for="status">Status:</label>
-            <input type="text" name="status" required>
-            <br>
+            <input type="text" id="status" name="status" required> <!-- Input status -->
 
-            <input type="submit" name="submit" value="Tambah">
+            <input type="submit" value="Tambah"> <!-- Tombol kirim -->
         </form>
+        <a href="list_order.php">Kembali ke Daftar Order</a> <!-- Tautan kembali -->
     </div>
 </body>
 </html>
