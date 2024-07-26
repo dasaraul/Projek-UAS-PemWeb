@@ -10,7 +10,7 @@ session_start();
 </head>
 <body>
     <div class="navbar">
-        <a href="index.php">Home</a> <!-- Ubah link Home -->
+        <a href="index.php">Home</a>
         <a href="list_pelanggan.php">Daftar Pelanggan</a>
         <a href="list_order.php">Daftar Order</a>
         <a href="list_reservasi.php">Daftar Reservasi</a>
@@ -27,7 +27,6 @@ session_start();
 
         <?php if (isset($_SESSION['loggedin'])): ?>
             <p>Mode Admin - Anda sedang login</p>
-            <a href="add_action.php">Tambah Data</a> <!-- Menuju ke halaman tambah data -->
         <?php else: ?>
             <p>Mode Pengunjung - Anda tidak login</p>
         <?php endif; ?>

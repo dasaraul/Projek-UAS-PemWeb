@@ -1,226 +1,299 @@
 #!/bin/bash
 
-# Path ke direktori proyek Anda
-PROJECT_DIR="C:\xampp\htdocs\uas-pemweb"
+# Navigasi ke direktori proyek
+cd C:\xampp\htdocs\uas-pemweb
 
-# Masuk ke direktori proyek
-cd $PROJECT_DIR || { echo "Direktori tidak ditemukan"; exit 1; }
-
-# Ubah link Home di dashboard.php
-echo "Mengubah link Home di dashboard.php..."
-sed -i 's|href="dashboard.php"|href="index.php"|' dashboard.php
-
-# Buat file add_action.php untuk mengelola penambahan data
-echo "Membuat file add_action.php..."
-cat > add_action.php <<EOF
+# Perbarui list_pelanggan.php
+cat <<EOL > list_pelanggan.php
 <?php
 session_start();
 require_once("bwatkonek.php");
 
-// Fungsi untuk menambah data ke tabel pelanggan
-if (isset(\$_POST['add_customer'])) {
-    \$first_name = mysqli_real_escape_string(\$mysqli, \$_POST['first_name']);
-    \$last_name = mysqli_real_escape_string(\$mysqli, \$_POST['last_name']);
-    \$email = mysqli_real_escape_string(\$mysqli, \$_POST['email']);
-    \$phone_number = mysqli_real_escape_string(\$mysqli, \$_POST['phone_number']);
-
-    mysqli_query(\$mysqli, "INSERT INTO customers (first_name, last_name, email, phone_number) VALUES ('\$first_name', '\$last_name', '\$email', '\$phone_number')");
-    header("Location: list_pelanggan.php");
-}
-
-// Fungsi untuk menambah data ke tabel order
-if (isset(\$_POST['add_order'])) {
-    \$customer_id = mysqli_real_escape_string(\$mysqli, \$_POST['customer_id']);
-    \$order_date = mysqli_real_escape_string(\$mysqli, \$_POST['order_date']);
-    \$order_time = mysqli_real_escape_string(\$mysqli, \$_POST['order_time']);
-    \$total_amount = mysqli_real_escape_string(\$mysqli, \$_POST['total_amount']);
-    \$status = mysqli_real_escape_string(\$mysqli, \$_POST['status']);
-
-    mysqli_query(\$mysqli, "INSERT INTO orders (customer_id, order_date, order_time, total_amount, status) VALUES ('\$customer_id', '\$order_date', '\$order_time', '\$total_amount', '\$status')");
-    header("Location: list_order.php");
-}
-
-// Fungsi untuk menambah data ke tabel reservasi
-if (isset(\$_POST['add_reservation'])) {
-    \$customer_id = mysqli_real_escape_string(\$mysqli, \$_POST['customer_id']);
-    \$reservation_date = mysqli_real_escape_string(\$mysqli, \$_POST['reservation_date']);
-    \$reservation_time = mysqli_real_escape_string(\$mysqli, \$_POST['reservation_time']);
-    \$number_of_guests = mysqli_real_escape_string(\$mysqli, \$_POST['number_of_guests']);
-    \$special_requests = mysqli_real_escape_string(\$mysqli, \$_POST['special_requests']);
-
-    mysqli_query(\$mysqli, "INSERT INTO reservations (customer_id, reservation_date, reservation_time, number_of_guests, special_requests) VALUES ('\$customer_id', '\$reservation_date', '\$reservation_time', '\$number_of_guests', '\$special_requests')");
-    header("Location: list_reservasi.php");
-}
-
-// Fungsi untuk menambah data ke tabel menu
-if (isset(\$_POST['add_menu_item'])) {
-    \$item_name = mysqli_real_escape_string(\$mysqli, \$_POST['item_name']);
-    \$description = mysqli_real_escape_string(\$mysqli, \$_POST['description']);
-    \$price = mysqli_real_escape_string(\$mysqli, \$_POST['price']);
-    \$category = mysqli_real_escape_string(\$mysqli, \$_POST['category']);
-    \$available = mysqli_real_escape_string(\$mysqli, \$_POST['available']);
-
-    mysqli_query(\$mysqli, "INSERT INTO menu_items (item_name, description, price, category, available) VALUES ('\$item_name', '\$description', '\$price', '\$category', '\$available')");
-    header("Location: list_menu.php");
-}
+// Ambil data pelanggan
+\$customersResult = mysqli_query(\$mysqli, "SELECT * FROM customers ORDER BY customer_id DESC");
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Tambah Data</title>
-    <link rel="stylesheet" type="text/css" href="cssnich/cssnya.css">
+    <title>List Pelanggan</title>
+    <link rel="stylesheet" type="text/css" href="cssnich/cssnya.css"> <!-- Link ke CSS -->
 </head>
 <body>
+    <div class="navbar">
+        <a href="index.php">Home</a>
+        <a href="list_order.php">Daftar Order</a>
+        <a href="list_reservasi.php">Daftar Reservasi</a>
+        <a href="list_menu.php">Daftar Menu</a>
+        <?php if (isset(\$_SESSION['loggedin'])): ?>
+            <a href="logout.php">Logout</a>
+        <?php else: ?>
+            <a href="login.php">Login</a>
+        <?php endif; ?>
+    </div>
+
     <div class="container">
-        <h1>Tambah Data</h1>
-
-        <!-- Form Tambah Pelanggan -->
-        <h2>Tambah Pelanggan</h2>
-        <form method="post" action="add_action.php">
-            <input type="hidden" name="add_customer">
-            <table>
-                <tr>
-                    <td>First Name:</td>
-                    <td><input type="text" name="first_name" required></td>
-                </tr>
-                <tr>
-                    <td>Last Name:</td>
-                    <td><input type="text" name="last_name" required></td>
-                </tr>
-                <tr>
-                    <td>Email:</td>
-                    <td><input type="email" name="email" required></td>
-                </tr>
-                <tr>
-                    <td>Phone Number:</td>
-                    <td><input type="text" name="phone_number" required></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td><input type="submit" value="Tambah Pelanggan"></td>
-                </tr>
-            </table>
-        </form>
-
-        <!-- Form Tambah Order -->
-        <h2>Tambah Order</h2>
-        <form method="post" action="add_action.php">
-            <input type="hidden" name="add_order">
-            <table>
-                <tr>
-                    <td>Customer ID:</td>
-                    <td><input type="number" name="customer_id" required></td>
-                </tr>
-                <tr>
-                    <td>Order Date:</td>
-                    <td><input type="date" name="order_date" required></td>
-                </tr>
-                <tr>
-                    <td>Order Time:</td>
-                    <td><input type="time" name="order_time" required></td>
-                </tr>
-                <tr>
-                    <td>Total Amount:</td>
-                    <td><input type="number" step="0.01" name="total_amount" required></td>
-                </tr>
-                <tr>
-                    <td>Status:</td>
-                    <td><input type="text" name="status" required></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td><input type="submit" value="Tambah Order"></td>
-                </tr>
-            </table>
-        </form>
-
-        <!-- Form Tambah Reservasi -->
-        <h2>Tambah Reservasi</h2>
-        <form method="post" action="add_action.php">
-            <input type="hidden" name="add_reservation">
-            <table>
-                <tr>
-                    <td>Customer ID:</td>
-                    <td><input type="number" name="customer_id" required></td>
-                </tr>
-                <tr>
-                    <td>Reservation Date:</td>
-                    <td><input type="date" name="reservation_date" required></td>
-                </tr>
-                <tr>
-                    <td>Reservation Time:</td>
-                    <td><input type="time" name="reservation_time" required></td>
-                </tr>
-                <tr>
-                    <td>Number of Guests:</td>
-                    <td><input type="number" name="number_of_guests" required></td>
-                </tr>
-                <tr>
-                    <td>Special Requests:</td>
-                    <td><textarea name="special_requests"></textarea></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td><input type="submit" value="Tambah Reservasi"></td>
-                </tr>
-            </table>
-        </form>
-
-        <!-- Form Tambah Menu -->
-        <h2>Tambah Menu</h2>
-        <form method="post" action="add_action.php">
-            <input type="hidden" name="add_menu_item">
-            <table>
-                <tr>
-                    <td>Item Name:</td>
-                    <td><input type="text" name="item_name" required></td>
-                </tr>
-                <tr>
-                    <td>Description:</td>
-                    <td><textarea name="description" required></textarea></td>
-                </tr>
-                <tr>
-                    <td>Price:</td>
-                    <td><input type="number" step="0.01" name="price" required></td>
-                </tr>
-                <tr>
-                    <td>Category:</td>
-                    <td><input type="text" name="category" required></td>
-                </tr>
-                <tr>
-                    <td>Available:</td>
-                    <td>
-                        <select name="available">
-                            <option value="1">Yes</option>
-                            <option value="0">No</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td><input type="submit" value="Tambah Menu"></td>
-                </tr>
-            </table>
-        </form>
+        <h2>List Pelanggan</h2>
+        <?php if (isset(\$_SESSION['loggedin'])): ?>
+            <a href="add_pelanggan.php">Tambah Pelanggan</a>
+        <?php endif; ?>
+        <table width='100%' border=0>
+            <tr bgcolor='#DDDDDD'>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <?php if (isset(\$_SESSION['loggedin'])): ?>
+                    <th>Aksi</th>
+                <?php endif; ?>
+            </tr>
+            <?php
+            while (\$res = mysqli_fetch_assoc(\$customersResult)) {
+                echo "<tr>";
+                echo "<td>".\$res['first_name']."</td>";
+                echo "<td>".\$res['last_name']."</td>";
+                echo "<td>".\$res['email']."</td>";
+                echo "<td>".\$res['phone_number']."</td>";
+                if (isset(\$_SESSION['loggedin'])) {
+                    echo "<td><a href='edit_pelanggan.php?id=".\$res['customer_id']."'>Edit</a> | <a href='delete_pelanggan.php?id=".\$res['customer_id']."' onclick='return confirm(\"Are you sure?\")'>Hapus</a></td>";
+                }
+                echo "</tr>";
+            }
+            ?>
+        </table>
     </div>
 </body>
 </html>
-EOF
+EOL
 
-# Tambahkan link aksi di setiap halaman list
-echo "Menambahkan link aksi di halaman list..."
+# Perbarui list_order.php
+cat <<EOL > list_order.php
+<?php
+session_start();
+require_once("bwatkonek.php");
 
-# Menambahkan link aksi di list_pelanggan.php
-sed -i '/<\/body>/i <a href="add_action.php">Tambah Pelanggan</a>' list_pelanggan.php
+// Ambil data order
+\$ordersResult = mysqli_query(\$mysqli, "SELECT * FROM orders ORDER BY order_id DESC");
+?>
 
-# Menambahkan link aksi di list_order.php
-sed -i '/<\/body>/i <a href="add_action.php">Tambah Order</a>' list_order.php
+<!DOCTYPE html>
+<html>
+<head>
+    <title>List Order</title>
+    <link rel="stylesheet" type="text/css" href="cssnich/cssnya.css"> <!-- Link ke CSS -->
+</head>
+<body>
+    <div class="navbar">
+        <a href="index.php">Home</a>
+        <a href="list_pelanggan.php">Daftar Pelanggan</a>
+        <a href="list_reservasi.php">Daftar Reservasi</a>
+        <a href="list_menu.php">Daftar Menu</a>
+        <?php if (isset(\$_SESSION['loggedin'])): ?>
+            <a href="logout.php">Logout</a>
+        <?php else: ?>
+            <a href="login.php">Login</a>
+        <?php endif; ?>
+    </div>
 
-# Menambahkan link aksi di list_reservasi.php
-sed -i '/<\/body>/i <a href="add_action.php">Tambah Reservasi</a>' list_reservasi.php
+    <div class="container">
+        <h2>List Order</h2>
+        <?php if (isset(\$_SESSION['loggedin'])): ?>
+            <a href="add_order.php">Tambah Order</a>
+        <?php endif; ?>
+        <table width='100%' border=0>
+            <tr bgcolor='#DDDDDD'>
+                <th>Order Date</th>
+                <th>Order Time</th>
+                <th>Total Amount</th>
+                <th>Status</th>
+                <?php if (isset(\$_SESSION['loggedin'])): ?>
+                    <th>Aksi</th>
+                <?php endif; ?>
+            </tr>
+            <?php
+            while (\$res = mysqli_fetch_assoc(\$ordersResult)) {
+                echo "<tr>";
+                echo "<td>".\$res['order_date']."</td>";
+                echo "<td>".\$res['order_time']."</td>";
+                echo "<td>".\$res['total_amount']."</td>";
+                echo "<td>".\$res['status']."</td>";
+                if (isset(\$_SESSION['loggedin'])) {
+                    echo "<td><a href='edit_order.php?id=".\$res['order_id']."'>Edit</a> | <a href='delete_order.php?id=".\$res['order_id']."' onclick='return confirm(\"Are you sure?\")'>Hapus</a></td>";
+                }
+                echo "</tr>";
+            }
+            ?>
+        </table>
+    </div>
+</body>
+</html>
+EOL
 
-# Menambahkan link aksi di list_menu.php
-sed -i '/<\/body>/i <a href="add_action.php">Tambah Menu</a>' list_menu.php
+# Perbarui list_reservasi.php
+cat <<EOL > list_reservasi.php
+<?php
+session_start();
+require_once("bwatkonek.php");
 
-echo "Pembaruan selesai!"
+// Ambil data reservasi
+\$reservationsResult = mysqli_query(\$mysqli, "SELECT * FROM reservations ORDER BY reservation_id DESC");
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>List Reservasi</title>
+    <link rel="stylesheet" type="text/css" href="cssnich/cssnya.css"> <!-- Link ke CSS -->
+</head>
+<body>
+    <div class="navbar">
+        <a href="index.php">Home</a>
+        <a href="list_pelanggan.php">Daftar Pelanggan</a>
+        <a href="list_order.php">Daftar Order</a>
+        <a href="list_menu.php">Daftar Menu</a>
+        <?php if (isset(\$_SESSION['loggedin'])): ?>
+            <a href="logout.php">Logout</a>
+        <?php else: ?>
+            <a href="login.php">Login</a>
+        <?php endif; ?>
+    </div>
+
+    <div class="container">
+        <h2>List Reservasi</h2>
+        <?php if (isset(\$_SESSION['loggedin'])): ?>
+            <a href="add_reservasi.php">Tambah Reservasi</a>
+        <?php endif; ?>
+        <table width='100%' border=0>
+            <tr bgcolor='#DDDDDD'>
+                <th>Reservation Date</th>
+                <th>Reservation Time</th>
+                <th>Number of Guests</th>
+                <th>Special Requests</th>
+                <?php if (isset(\$_SESSION['loggedin'])): ?>
+                    <th>Aksi</th>
+                <?php endif; ?>
+            </tr>
+            <?php
+            while (\$res = mysqli_fetch_assoc(\$reservationsResult)) {
+                echo "<tr>";
+                echo "<td>".\$res['reservation_date']."</td>";
+                echo "<td>".\$res['reservation_time']."</td>";
+                echo "<td>".\$res['number_of_guests']."</td>";
+                echo "<td>".\$res['special_requests']."</td>";
+                if (isset(\$_SESSION['loggedin'])) {
+                    echo "<td><a href='edit_reservasi.php?id=".\$res['reservation_id']."'>Edit</a> | <a href='delete_reservasi.php?id=".\$res['reservation_id']."' onclick='return confirm(\"Are you sure?\")'>Hapus</a></td>";
+                }
+                echo "</tr>";
+            }
+            ?>
+        </table>
+    </div>
+</body>
+</html>
+EOL
+
+# Perbarui list_menu.php
+cat <<EOL > list_menu.php
+<?php
+session_start();
+require_once("bwatkonek.php");
+
+// Ambil data menu
+\$menuItemsResult = mysqli_query(\$mysqli, "SELECT * FROM menu_items ORDER BY menu_item_id DESC");
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>List Menu</title>
+    <link rel="stylesheet" type="text/css" href="cssnich/cssnya.css"> <!-- Link ke CSS -->
+</head>
+<body>
+    <div class="navbar">
+        <a href="index.php">Home</a>
+        <a href="list_pelanggan.php">Daftar Pelanggan</a>
+        <a href="list_order.php">Daftar Order</a>
+        <a href="list_reservasi.php">Daftar Reservasi</a>
+        <?php if (isset(\$_SESSION['loggedin'])): ?>
+            <a href="logout.php">Logout</a>
+        <?php else: ?>
+            <a href="login.php">Login</a>
+        <?php endif; ?>
+    </div>
+
+    <div class="container">
+        <h2>List Menu</h2>
+        <?php if (isset(\$_SESSION['loggedin'])): ?>
+            <a href="add_menu.php">Tambah Menu</a>
+        <?php endif; ?>
+        <table width='100%' border=0>
+            <tr bgcolor='#DDDDDD'>
+                <th>Item Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Category</th>
+                <th>Available</th>
+                <?php if (isset(\$_SESSION['loggedin'])): ?>
+                    <th>Aksi</th>
+                <?php endif; ?>
+            </tr>
+            <?php
+            while (\$res = mysqli_fetch_assoc(\$menuItemsResult)) {
+                echo "<tr>";
+                echo "<td>".\$res['item_name']."</td>";
+                echo "<td>".\$res['description']."</td>";
+                echo "<td>".\$res['price']."</td>";
+                echo "<td>".\$res['category']."</td>";
+                echo "<td>".(\$res['available'] ? 'Yes' : 'No')."</td>";
+                if (isset(\$_SESSION['loggedin'])) {
+                    echo "<td><a href='edit_menu.php?id=".\$res['menu_item_id']."'>Edit</a> | <a href='delete_menu.php?id=".\$res['menu_item_id']."' onclick='return confirm(\"Are you sure?\")'>Hapus</a></td>";
+                }
+                echo "</tr>";
+            }
+            ?>
+        </table>
+    </div>
+</body>
+</html>
+EOL
+
+# Perbarui dashboard.php
+cat <<EOL > dashboard.php
+<?php
+session_start();
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="cssnich/cssnya.css">
+</head>
+<body>
+    <div class="navbar">
+        <a href="index.php">Home</a>
+        <a href="list_pelanggan.php">Daftar Pelanggan</a>
+        <a href="list_order.php">Daftar Order</a>
+        <a href="list_reservasi.php">Daftar Reservasi</a>
+        <a href="list_menu.php">Daftar Menu</a>
+        <?php if (isset(\$_SESSION['loggedin'])): ?>
+            <a href="logout.php">Logout</a>
+        <?php else: ?>
+            <a href="login.php">Login</a>
+        <?php endif; ?>
+    </div>
+
+    <div class="container">
+        <h1>Selamat Datang di Dashboard</h1>
+
+        <?php if (isset(\$_SESSION['loggedin'])): ?>
+            <p>Mode Admin - Anda sedang login</p>
+        <?php else: ?>
+            <p>Mode Pengunjung - Anda tidak login</p>
+        <?php endif; ?>
+    </div>
+</body>
+</html>
+EOL
+
+echo "Update selesai!"

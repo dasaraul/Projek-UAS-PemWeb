@@ -1,6 +1,7 @@
 <?php
 require_once("bwatkonek.php");
 require_once("layout/nav.php");
+session_start(); // Pastikan session dimulai untuk cek login
 
 // Ambil data dari setiap tabel
 $customersResult = mysqli_query($mysqli, "SELECT * FROM customers ORDER BY customer_id DESC");
@@ -18,6 +19,18 @@ $orderItemsResult = mysqli_query($mysqli, "SELECT * FROM order_items ORDER BY or
 </head>
 
 <body>
+    <div class="navbar">
+        <a href="index.php">Home</a>
+        <a href="list_pelanggan.php">Daftar Pelanggan</a>
+        <a href="list_order.php">Daftar Order</a>
+        <a href="list_reservasi.php">Daftar Reservasi</a>
+        <a href="list_menu.php">Daftar Menu</a>
+        <?php if (isset($_SESSION['loggedin'])): ?>
+            <a href="logout.php">Logout</a>
+        <?php else: ?>
+            <a href="login.php">Login</a>
+        <?php endif; ?>
+    </div>
 
     <div class="container">
         <center>
