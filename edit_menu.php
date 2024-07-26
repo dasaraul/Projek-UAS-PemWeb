@@ -10,14 +10,12 @@ if (isset($_POST['submit'])) {
     $category = $_POST['category'];
     $available = isset($_POST['available']) ? 1 : 0;
 
-    // Query untuk memperbarui data menu
     $query = "UPDATE menu_items SET item_name='$item_name', description='$description', price='$price', category='$category', available='$available' WHERE menu_item_id=$id";
     mysqli_query($mysqli, $query);
 
-    header("Location: list_menu.php"); // Arahkan ke halaman daftar menu setelah berhasil
+    header("Location: list_menu.php");
 }
 
-// Ambil data menu berdasarkan ID
 $result = mysqli_query($mysqli, "SELECT * FROM menu_items WHERE menu_item_id=$id");
 $menu = mysqli_fetch_assoc($result);
 ?>
@@ -26,7 +24,7 @@ $menu = mysqli_fetch_assoc($result);
 <html>
 <head>
     <title>Edit Menu</title>
-    <link rel="stylesheet" type="text/css" href="cssnich/cssnya.css"> <!-- Link ke CSS -->
+    <link rel="stylesheet" type="text/css" href="cssnich/cssnya.css">
 </head>
 <body>
     <div class="container">
@@ -37,7 +35,7 @@ $menu = mysqli_fetch_assoc($result);
             <br>
 
             <label for="description">Description:</label>
-            <textarea name="description" required><?php echo $menu['description']; ?></textarea>
+            <textarea name="description"><?php echo $menu['description']; ?></textarea>
             <br>
 
             <label for="price">Price:</label>
@@ -49,7 +47,7 @@ $menu = mysqli_fetch_assoc($result);
             <br>
 
             <label for="available">Available:</label>
-            <input type="checkbox" name="available" value="1" <?php echo $menu['available'] ? 'checked' : ''; ?>>
+            <input type="checkbox" name="available" <?php echo $menu['available'] ? 'checked' : ''; ?>>
             <br>
 
             <input type="submit" name="submit" value="Update">

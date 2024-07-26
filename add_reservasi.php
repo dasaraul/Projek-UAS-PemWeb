@@ -7,11 +7,10 @@ if (isset($_POST['submit'])) {
     $number_of_guests = $_POST['number_of_guests'];
     $special_requests = $_POST['special_requests'];
 
-    // Query untuk menambah data reservasi
     $query = "INSERT INTO reservations (reservation_date, reservation_time, number_of_guests, special_requests) VALUES ('$reservation_date', '$reservation_time', '$number_of_guests', '$special_requests')";
     mysqli_query($mysqli, $query);
 
-    header("Location: list_reservasi.php"); // Arahkan ke halaman daftar reservasi setelah berhasil
+    header("Location: list_reservasi.php");
 }
 ?>
 
@@ -19,7 +18,7 @@ if (isset($_POST['submit'])) {
 <html>
 <head>
     <title>Tambah Reservasi</title>
-    <link rel="stylesheet" type="text/css" href="cssnich/cssnya.css"> <!-- Link ke CSS -->
+    <link rel="stylesheet" type="text/css" href="cssnich/cssnya.css">
 </head>
 <body>
     <div class="container">
@@ -38,7 +37,7 @@ if (isset($_POST['submit'])) {
             <br>
 
             <label for="special_requests">Special Requests:</label>
-            <textarea name="special_requests" required></textarea>
+            <textarea name="special_requests"></textarea>
             <br>
 
             <input type="submit" name="submit" value="Tambah">

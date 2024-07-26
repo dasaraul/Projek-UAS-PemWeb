@@ -7,11 +7,10 @@ if (isset($_POST['submit'])) {
     $email = $_POST['email'];
     $phone_number = $_POST['phone_number'];
 
-    // Query untuk menambah data pelanggan
     $query = "INSERT INTO customers (first_name, last_name, email, phone_number) VALUES ('$first_name', '$last_name', '$email', '$phone_number')";
     mysqli_query($mysqli, $query);
 
-    header("Location: list_pelanggan.php"); // Arahkan ke halaman daftar pelanggan setelah berhasil
+    header("Location: list_pelanggan.php");
 }
 ?>
 
@@ -19,7 +18,7 @@ if (isset($_POST['submit'])) {
 <html>
 <head>
     <title>Tambah Pelanggan</title>
-    <link rel="stylesheet" type="text/css" href="cssnich/cssnya.css"> <!-- Link ke CSS -->
+    <link rel="stylesheet" type="text/css" href="cssnich/cssnya.css">
 </head>
 <body>
     <div class="container">

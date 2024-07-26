@@ -9,14 +9,12 @@ if (isset($_POST['submit'])) {
     $total_amount = $_POST['total_amount'];
     $status = $_POST['status'];
 
-    // Query untuk memperbarui data order
     $query = "UPDATE orders SET order_date='$order_date', order_time='$order_time', total_amount='$total_amount', status='$status' WHERE order_id=$id";
     mysqli_query($mysqli, $query);
 
-    header("Location: list_order.php"); // Arahkan ke halaman daftar order setelah berhasil
+    header("Location: list_order.php");
 }
 
-// Ambil data order berdasarkan ID
 $result = mysqli_query($mysqli, "SELECT * FROM orders WHERE order_id=$id");
 $order = mysqli_fetch_assoc($result);
 ?>
@@ -25,7 +23,7 @@ $order = mysqli_fetch_assoc($result);
 <html>
 <head>
     <title>Edit Order</title>
-    <link rel="stylesheet" type="text/css" href="cssnich/cssnya.css"> <!-- Link ke CSS -->
+    <link rel="stylesheet" type="text/css" href="cssnich/cssnya.css">
 </head>
 <body>
     <div class="container">

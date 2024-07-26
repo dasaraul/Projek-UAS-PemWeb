@@ -7,11 +7,10 @@ if (isset($_POST['submit'])) {
     $total_amount = $_POST['total_amount'];
     $status = $_POST['status'];
 
-    // Query untuk menambah data order
     $query = "INSERT INTO orders (order_date, order_time, total_amount, status) VALUES ('$order_date', '$order_time', '$total_amount', '$status')";
     mysqli_query($mysqli, $query);
 
-    header("Location: list_order.php"); // Arahkan ke halaman daftar order setelah berhasil
+    header("Location: list_order.php");
 }
 ?>
 
@@ -19,7 +18,7 @@ if (isset($_POST['submit'])) {
 <html>
 <head>
     <title>Tambah Order</title>
-    <link rel="stylesheet" type="text/css" href="cssnich/cssnya.css"> <!-- Link ke CSS -->
+    <link rel="stylesheet" type="text/css" href="cssnich/cssnya.css">
 </head>
 <body>
     <div class="container">

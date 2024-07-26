@@ -8,11 +8,10 @@ if (isset($_POST['submit'])) {
     $category = $_POST['category'];
     $available = isset($_POST['available']) ? 1 : 0;
 
-    // Query untuk menambah data menu
     $query = "INSERT INTO menu_items (item_name, description, price, category, available) VALUES ('$item_name', '$description', '$price', '$category', '$available')";
     mysqli_query($mysqli, $query);
 
-    header("Location: list_menu.php"); // Arahkan ke halaman daftar menu setelah berhasil
+    header("Location: list_menu.php");
 }
 ?>
 
@@ -20,7 +19,7 @@ if (isset($_POST['submit'])) {
 <html>
 <head>
     <title>Tambah Menu</title>
-    <link rel="stylesheet" type="text/css" href="cssnich/cssnya.css"> <!-- Link ke CSS -->
+    <link rel="stylesheet" type="text/css" href="cssnich/cssnya.css">
 </head>
 <body>
     <div class="container">
@@ -31,7 +30,7 @@ if (isset($_POST['submit'])) {
             <br>
 
             <label for="description">Description:</label>
-            <textarea name="description" required></textarea>
+            <textarea name="description"></textarea>
             <br>
 
             <label for="price">Price:</label>
@@ -43,7 +42,7 @@ if (isset($_POST['submit'])) {
             <br>
 
             <label for="available">Available:</label>
-            <input type="checkbox" name="available" value="1">
+            <input type="checkbox" name="available">
             <br>
 
             <input type="submit" name="submit" value="Tambah">

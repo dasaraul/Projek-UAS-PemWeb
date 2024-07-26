@@ -9,14 +9,12 @@ if (isset($_POST['submit'])) {
     $email = $_POST['email'];
     $phone_number = $_POST['phone_number'];
 
-    // Query untuk memperbarui data pelanggan
     $query = "UPDATE customers SET first_name='$first_name', last_name='$last_name', email='$email', phone_number='$phone_number' WHERE customer_id=$id";
     mysqli_query($mysqli, $query);
 
-    header("Location: list_pelanggan.php"); // Arahkan ke halaman daftar pelanggan setelah berhasil
+    header("Location: list_pelanggan.php");
 }
 
-// Ambil data pelanggan berdasarkan ID
 $result = mysqli_query($mysqli, "SELECT * FROM customers WHERE customer_id=$id");
 $customer = mysqli_fetch_assoc($result);
 ?>
@@ -25,7 +23,7 @@ $customer = mysqli_fetch_assoc($result);
 <html>
 <head>
     <title>Edit Pelanggan</title>
-    <link rel="stylesheet" type="text/css" href="cssnich/cssnya.css"> <!-- Link ke CSS -->
+    <link rel="stylesheet" type="text/css" href="cssnich/cssnya.css">
 </head>
 <body>
     <div class="container">
