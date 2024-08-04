@@ -21,42 +21,46 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
+<!DOCTYPE html>
 <html>
 <head>
     <title>Register</title>
+    <link rel="stylesheet" type="text/css" href="cssnich/cssnya.css">
 </head>
-
 <body>
-    <center>
-    <h2>Register</h2>
-    <form method="POST">
-        <table>
-            <tr>
-                <td>Username:</td>
-                <td><input type="text" name="username" required></td>
-            </tr>
-            <tr>
-                <td>Password:</td>
-                <td><input type="password" name="password" required></td>
-            </tr>
-            <tr>
-                <td>Nama Lengkap:</td>
-                <td><input type="text" name="namalengkap" required></td>
-            </tr>
-            <tr>
-                <td>Email:</td>
-                <td><input type="email" name="email" required></td>
-            </tr>
-            <tr>
-                <td>Unique Key:</td>
-                <td><input type="text" name="unique_key" required></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td><input type="submit" value="Register"></td>
-            </tr>
-        </table>
-    </form>
-    </center>
+    <div class="container">
+        <center>
+            <h2>Register</h2>
+            <form method="POST">
+                <table>
+                    <tr>
+                        <td>Username:</td>
+                        <td><input type="text" name="username" required></td>
+                    </tr>
+                    <tr>
+                        <td>Password:</td>
+                        <td><input type="password" name="password" required></td>
+                    </tr>
+                    <tr>
+                        <td>Nama Lengkap:</td>
+                        <td><input type="text" name="namalengkap" required></td>
+                    </tr>
+                    <tr>
+                        <td>Email:</td>
+                        <td><input type="email" name="email" required></td>
+                    </tr>
+                    <tr>
+                        <td>Unique Key:</td>
+                        <td><input type="text" name="unique_key" required></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><input type="submit" value="Register"></td>
+                    </tr>
+                </table>
+            </form>
+            <a href="login.php">Login</a>
+        </center>
+    </div>
 </body>
 </html>

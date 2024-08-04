@@ -36,7 +36,7 @@ $orderItemsResult = mysqli_query($mysqli, "SELECT * FROM order_items ORDER BY or
             <h1>CRUD PHP NATIVE</h1>
             <h2>Tugas UAS Pemegroaman Web R.03</h2>
             <h3>CRUD sederhana tanpa css/style lainnya berisikan tambah, edit, hapus</h3>
-        </center>
+        </center><br><br>
 
         <!-- Tabel Pelanggan -->
         <h2>Daftar Pelanggan</h2>
@@ -63,7 +63,8 @@ $orderItemsResult = mysqli_query($mysqli, "SELECT * FROM order_items ORDER BY or
                 echo "</tr>";
             }
             ?>
-        </table>
+        </table><br>
+        
 
         <!-- Tabel Reservasi -->
         <h2>Daftar Reservasi</h2>
@@ -90,7 +91,7 @@ $orderItemsResult = mysqli_query($mysqli, "SELECT * FROM order_items ORDER BY or
                 echo "</tr>";
             }
             ?>
-        </table>
+        </table><br>
 
         <!-- Tabel Menu -->
         <h2>Daftar Menu</h2>
@@ -119,7 +120,7 @@ $orderItemsResult = mysqli_query($mysqli, "SELECT * FROM order_items ORDER BY or
                 echo "</tr>";
             }
             ?>
-        </table>
+        </table><br>
 
         <!-- Tabel Order -->
         <h2>Daftar Order</h2>
@@ -146,7 +147,7 @@ $orderItemsResult = mysqli_query($mysqli, "SELECT * FROM order_items ORDER BY or
                 echo "</tr>";
             }
             ?>
-        </table>
+        </table><br>
 
         <!-- Tabel Item Order -->
         <h2>Daftar Item Order</h2>
@@ -173,7 +174,7 @@ $orderItemsResult = mysqli_query($mysqli, "SELECT * FROM order_items ORDER BY or
                 echo "</tr>";
             }
             ?>
-        </table>
+        </table><br>
     </div>
 </body>
 </html>
