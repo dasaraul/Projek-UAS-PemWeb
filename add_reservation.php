@@ -20,7 +20,7 @@ if (!isset($_SESSION['loggedin'])) {
         <a href="list_order.php">Daftar Order</a>
         <a href="list_reservasi.php">Daftar Reservasi</a>
         <a href="list_menu.php">Daftar Menu</a>
-        <a href="logout.php">Logout</a>
+        <a href="logout.php">Keluar</a>
     </div>
 
     <div class="container">

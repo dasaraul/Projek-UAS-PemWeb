@@ -14,10 +14,12 @@ $reservationsResult = mysqli_query($mysqli, "SELECT * FROM reservations ORDER BY
 </head>
 <body>
     <div class="navbar">
-        <a href="index.php">Beranda</a> <!-- Link ke halaman beranda -->
-        <a href="list_pelanggan.php">Daftar Pelanggan</a> <!-- Link ke halaman daftar pelanggan -->
-        <a href="list_order.php">Daftar Order</a> <!-- Link ke halaman daftar order -->
-        <a href="list_menu.php">Daftar Menu</a> <!-- Link ke halaman daftar menu -->
+    <a href="index.php">Beranda</a>
+        <a href="list_pelanggan.php">Daftar Pelanggan</a>
+        <a href="list_order.php">Daftar Order</a>
+        <a href="list_reservasi.php">Daftar Reservasi</a>
+        <a href="list_menu.php">Daftar Menu</a>
+        <a href="list_order_item.php">Order Item</a> <!-- Link ke halaman daftar menu -->
         <?php if (isset($_SESSION['loggedin'])): ?> <!-- Cek apakah pengguna sudah login -->
             <a href="logout.php">Keluar</a> <!-- Link untuk logout -->
         <?php else: ?>
