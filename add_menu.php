@@ -2,15 +2,15 @@
 session_start();
 require_once("bwatkonek.php"); // Koneksi ke database
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
     <title>Tambah Menu</title>
-    <link rel="stylesheet" type="text/css" href="cssnich/cssnya.css"> <!-- Tautkan ke file CSS -->
+    <link rel="stylesheet" type="text/css" href="cssnich/cssnya.css">
 </head>
 <body>
-    <div class="navbar"> <!-- Menu navigasi -->
+    <div class="navbar">
+        <!-- Navigasi -->
         <a href="index.php">Beranda</a>
         <a href="list_pelanggan.php">Daftar Pelanggan</a>
         <a href="list_order.php">Daftar Order</a>
@@ -24,22 +24,23 @@ require_once("bwatkonek.php"); // Koneksi ke database
             <a href="login.php">Masuk</a>
         <?php endif; ?>
     </div>
-    <div class="container"> <!-- Kontainer utama -->
+    <div class="container">
         <center>
-            <h1>Tambah Menu</h1> <!-- Judul halaman -->
-            <form action="add_menu_action.php" method="POST"> <!-- Formulir tambah menu -->
+            <h1>Tambah Menu</h1>
+            <!-- Form tambah menu -->
+            <form action="add_menu_action.php" method="POST">
                 <table>
                     <tr>
                         <td><label for="item_name">Nama Item:</label></td>
-                        <td><input type="text" id="item_name" name="item_name" required></td> <!-- Input nama item -->
+                        <td><input type="text" id="item_name" name="item_name" required></td>
                     </tr>
                     <tr>
                         <td><label for="description">Deskripsi:</label></td>
-                        <td><input type="text" id="description" name="description" required></td> <!-- Input deskripsi -->
+                        <td><input type="text" id="description" name="description" required></td>
                     </tr>
                     <tr>
                         <td><label for="price">Harga:</label></td>
-                        <td><input type="number" step="0.01" id="price" name="price" required></td> <!-- Input harga -->
+                        <td><input type="number" step="0.01" id="price" name="price" required></td>
                     </tr>
                     <tr>
                         <td><label for="category">Kategori:</label></td>
@@ -55,19 +56,24 @@ require_once("bwatkonek.php"); // Koneksi ke database
                                 }
                                 ?>
                             </select>
-                        </td> <!-- Dropdown kategori -->
+                        </td>
                     </tr>
                     <tr>
                         <td><label for="available">Tersedia:</label></td>
-                        <td><input type="text" id="available" name="available" required></td> <!-- Input ketersediaan -->
+                        <td>
+                            <select id="available" name="available" required>
+                                <option value="1">Ya</option>
+                                <option value="0">Tidak</option>
+                            </select>
+                        </td>
                     </tr>
                     <tr>
                         <td></td>
-                        <td><input type="submit" value="Tambah"></td> <!-- Tombol kirim -->
+                        <td><input type="submit" value="Tambah"></td>
                     </tr>
                 </table>
             </form>
-            <a href="list_menu.php">Kembali ke Daftar Menu</a> <!-- Tautan kembali -->
+            <a href="list_menu.php">Kembali ke Daftar Menu</a>
         </center>
     </div>
 </body>

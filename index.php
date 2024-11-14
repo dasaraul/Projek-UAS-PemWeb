@@ -40,143 +40,49 @@ $orderItemsResult = mysqli_query($mysqli, "SELECT * FROM order_items ORDER BY or
             <h3>CRUD sederhana tanpa css/style lainnya berisikan tambah, edit, hapus</h3>
         </center><br><br>
 
-        <!-- Tabel Pelanggan -->
-        <h2>Daftar Pelanggan</h2>
-        <table width='100%' border=0>
-            <tr bgcolor='#DDDDDD'>
-                <th>Nama Depan</th>
-                <th>Nama Belakang</th>
-                <th>Email</th>
-                <th>No. Telepon</th>
-                <?php if (isset($_SESSION['loggedin'])): ?>
-                    <th>Aksi</th>
-                <?php endif; ?>
-            </tr>
-            <?php
-            while ($res = mysqli_fetch_assoc($customersResult)) {
-                echo "<tr>";
-                echo "<td>".$res['first_name']."</td>";
-                echo "<td>".$res['last_name']."</td>";
-                echo "<td>".$res['email']."</td>";
-                echo "<td>".$res['phone_number']."</td>";
-                if (isset($_SESSION['loggedin'])) {
-                    echo "<td><a href='edit_pelanggan.php?id=".$res['customer_id']."'>Edit</a> | <a href='delete_pelanggan.php?id=".$res['customer_id']."' onclick='return confirm(\"Yakin ingin menghapus?\")'>Hapus</a></td>";
-                }
-                echo "</tr>";
+        <!-- Tampilkan tabel untuk setiap entitas -->
+        <?php
+        function displayTable($title, $result, $fields, $actions = true) {
+            echo "<h2>$title</h2>";
+            echo "<table width='100%' border=0>";
+            echo "<tr bgcolor='#DDDDDD'>";
+            foreach ($fields as $field) {
+                echo "<th>$field</th>";
             }
-            ?>
-        </table><br>
-        
+            if (isset($_SESSION['loggedin']) && $actions) {
+                echo "<th>Aksi</th>";
+            }
+            echo "</tr>";
 
-        <!-- Tabel Reservasi -->
-        <h2>Daftar Reservasi</h2>
-        <table width='100%' border=0>
-            <tr bgcolor='#DDDDDD'>
-                <th>Tanggal Reservasi</th>
-                <th>Waktu Reservasi</th>
-                <th>Jumlah Tamu</th>
-                <th>Permintaan Khusus</th>
-                <?php if (isset($_SESSION['loggedin'])): ?>
-                    <th>Aksi</th>
-                <?php endif; ?>
-            </tr>
-            <?php
-            while ($res = mysqli_fetch_assoc($reservationsResult)) {
+            while ($res = mysqli_fetch_assoc($result)) {
                 echo "<tr>";
-                echo "<td>".$res['reservation_date']."</td>";
-                echo "<td>".$res['reservation_time']."</td>";
-                echo "<td>".$res['number_of_guests']."</td>";
-                echo "<td>".$res['special_requests']."</td>";
-                if (isset($_SESSION['loggedin'])) {
-                    echo "<td><a href='edit_reservasi.php?id=".$res['reservation_id']."'>Edit</a> | <a href='delete_reservasi.php?id=".$res['reservation_id']."' onclick='return confirm(\"Yakin ingin menghapus?\")'>Hapus</a></td>";
+                foreach ($fields as $field) {
+                    echo "<td>".$res[$field]."</td>";
+                }
+                if (isset($_SESSION['loggedin']) && $actions) {
+                    $id = $res[array_key_first($res)];
+                    echo "<td><a href='edit_".strtolower($title)."?id=$id'>Edit</a> | <a href='delete_".strtolower($title)."?id=$id' onclick='return confirm(\"Yakin ingin menghapus?\")'>Hapus</a></td>";
                 }
                 echo "</tr>";
             }
-            ?>
-        </table><br>
+            echo "</table><br>";
+        }
 
-        <!-- Tabel Menu -->
-        <h2>Daftar Menu</h2>
-        <table width='100%' border=0>
-            <tr bgcolor='#DDDDDD'>
-                <th>Nama Item</th>
-                <th>Deskripsi</th>
-                <th>Harga</th>
-                <th>Kategori</th>
-                <th>Tersedia</th>
-                <?php if (isset($_SESSION['loggedin'])): ?>
-                    <th>Aksi</th>
-                <?php endif; ?>
-            </tr>
-            <?php
-            while ($res = mysqli_fetch_assoc($menuItemsResult)) {
-                echo "<tr>";
-                echo "<td>".$res['item_name']."</td>";
-                echo "<td>".$res['description']."</td>";
-                echo "<td>".$res['price']."</td>";
-                echo "<td>".$res['category']."</td>";
-                echo "<td>".($res['available'] ? 'Ya' : 'Tidak')."</td>";
-                if (isset($_SESSION['loggedin'])) {
-                    echo "<td><a href='edit_menu.php?id=".$res['menu_item_id']."'>Edit</a> | <a href='delete_menu.php?id=".$res['menu_item_id']."' onclick='return confirm(\"Yakin ingin menghapus?\")'>Hapus</a></td>";
-                }
-                echo "</tr>";
-            }
-            ?>
-        </table><br>
+        $customerFields = ['first_name', 'last_name', 'email', 'phone_number'];
+        displayTable("Daftar Pelanggan", $customersResult, $customerFields);
 
-        <!-- Tabel Order -->
-        <h2>Daftar Order</h2>
-        <table width='100%' border=0>
-            <tr bgcolor='#DDDDDD'>
-                <th>Tanggal Order</th>
-                <th>Waktu Order</th>
-                <th>Total Jumlah</th>
-                <th>Status</th>
-                <?php if (isset($_SESSION['loggedin'])): ?>
-                    <th>Aksi</th>
-                <?php endif; ?>
-            </tr>
-            <?php
-            while ($res = mysqli_fetch_assoc($ordersResult)) {
-                echo "<tr>";
-                echo "<td>".$res['order_date']."</td>";
-                echo "<td>".$res['order_time']."</td>";
-                echo "<td>".$res['total_amount']."</td>";
-                echo "<td>".$res['status']."</td>";
-                if (isset($_SESSION['loggedin'])) {
-                    echo "<td><a href='edit_order.php?id=".$res['order_id']."'>Edit</a> | <a href='delete_order.php?id=".$res['order_id']."' onclick='return confirm(\"Yakin ingin menghapus?\")'>Hapus</a></td>";
-                }
-                echo "</tr>";
-            }
-            ?>
-        </table><br>
+        $reservationFields = ['reservation_date', 'reservation_time', 'number_of_guests', 'special_requests'];
+        displayTable("Daftar Reservasi", $reservationsResult, $reservationFields);
 
-        <!-- Tabel Item Order -->
-        <h2>Daftar Item Order</h2>
-        <table width='100%' border=0>
-            <tr bgcolor='#DDDDDD'>
-                <th>ID Order</th>
-                <th>ID Menu Item</th>
-                <th>Kuantitas</th>
-                <th>Harga</th>
-                <?php if (isset($_SESSION['loggedin'])): ?>
-                    <th>Aksi</th>
-                <?php endif; ?>
-            </tr>
-            <?php
-            while ($res = mysqli_fetch_assoc($orderItemsResult)) {
-                echo "<tr>";
-                echo "<td>".$res['order_id']."</td>";
-                echo "<td>".$res['menu_item_id']."</td>";
-                echo "<td>".$res['quantity']."</td>";
-                echo "<td>".$res['price']."</td>";
-                if (isset($_SESSION['loggedin'])) {
-                    echo "<td><a href='edit_order_item.php?id=".$res['order_item_id']."'>Edit</a> | <a href='delete_order_item.php?id=".$res['order_item_id']."' onclick='return confirm(\"Yakin ingin menghapus?\")'>Hapus</a></td>";
-                }
-                echo "</tr>";
-            }
-            ?>
-        </table><br>
+        $menuItemFields = ['item_name', 'description', 'price', 'category', 'available'];
+        displayTable("Daftar Menu", $menuItemsResult, $menuItemFields);
+
+        $orderFields = ['order_date', 'order_time', 'total_amount', 'status'];
+        displayTable("Daftar Order", $ordersResult, $orderFields);
+
+        $orderItemFields = ['order_id', 'menu_item_id', 'quantity', 'price'];
+        displayTable("Daftar Item Order", $orderItemsResult, $orderItemFields);
+        ?>
     </div>
 </body>
 </html>

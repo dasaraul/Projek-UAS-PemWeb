@@ -4,6 +4,7 @@ require_once("bwatkonek.php");
 $id = $_GET['id'];
 
 if (isset($_POST['submit'])) {
+    // Ambil data dari form
     $order_id = $_POST['order_id'];
     $menu_item_id = $_POST['menu_item_id'];
     $quantity = $_POST['quantity'];

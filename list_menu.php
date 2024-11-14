@@ -13,19 +13,7 @@ $menuItemsResult = mysqli_query($mysqli, "SELECT * FROM menu_items ORDER BY menu
     <link rel="stylesheet" type="text/css" href="cssnich/cssnya.css"> <!-- Link ke CSS -->
 </head>
 <body>
-    <div class="navbar">
-    <a href="index.php">Beranda</a>
-        <a href="list_pelanggan.php">Daftar Pelanggan</a>
-        <a href="list_order.php">Daftar Order</a>
-        <a href="list_reservasi.php">Daftar Reservasi</a>
-        <a href="list_menu.php">Daftar Menu</a>
-        <a href="list_order_item.php">Order Item</a>
-        <?php if (isset($_SESSION['loggedin'])): ?>
-            <a href="logout.php">Keluar</a>
-        <?php else: ?>
-            <a href="login.php">Masuk</a>
-        <?php endif; ?>
-    </div>
+    <?php include("navbar.php"); ?>
 
     <div class="container">
         <h2>Daftar Menu</h2>
@@ -52,7 +40,7 @@ $menuItemsResult = mysqli_query($mysqli, "SELECT * FROM menu_items ORDER BY menu
                 echo "<td>".$res['category']."</td>";
                 echo "<td>".($res['available'] ? 'Ya' : 'Tidak')."</td>";
                 if (isset($_SESSION['loggedin'])) {
-                    echo "<td><a href='edit_menu.php?id=".$res['menu_item_id']."'>Edit</a> | <a href='delete_menu.php?id=".$res['menu_item_id']."' onclick='return confirm(\"Yakin ingin menghapus?\")'>Hapus</a></td>";
+                    echo "<td><a href='edit_menu.php?id=".['menu_item_id']."'>Edit</a> | <a href='delete_menu.php?id=".['menu_item_id']."' onclick='return confirm(\"Yakin ingin menghapus?\")'>Hapus</a></td>";
                 }
                 echo "</tr>";
             }

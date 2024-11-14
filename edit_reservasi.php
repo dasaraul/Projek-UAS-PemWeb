@@ -1,20 +1,23 @@
 <?php
 require_once("bwatkonek.php");
 
-$id = $_GET['id'];
+ = $_GET['id'];
 
 if (isset($_POST['submit'])) {
+    // Ambil data dari form
     $reservation_date = $_POST['reservation_date'];
     $reservation_time = $_POST['reservation_time'];
     $number_of_guests = $_POST['number_of_guests'];
     $special_requests = $_POST['special_requests'];
 
+    // Query untuk update data reservasi
     $query = "UPDATE reservations SET reservation_date='$reservation_date', reservation_time='$reservation_time', number_of_guests='$number_of_guests', special_requests='$special_requests' WHERE reservation_id=$id";
     mysqli_query($mysqli, $query);
 
     header("Location: list_reservasi.php");
 }
 
+// Query untuk mengambil data reservasi berdasarkan ID
 $result = mysqli_query($mysqli, "SELECT * FROM reservations WHERE reservation_id=$id");
 $reservation = mysqli_fetch_assoc($result);
 ?>

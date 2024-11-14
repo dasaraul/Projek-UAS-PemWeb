@@ -4,17 +4,20 @@ require_once("bwatkonek.php");
 $id = $_GET['id'];
 
 if (isset($_POST['submit'])) {
+    // Ambil data dari form
     $order_date = $_POST['order_date'];
     $order_time = $_POST['order_time'];
     $total_amount = $_POST['total_amount'];
     $status = $_POST['status'];
 
+    // Query untuk memperbarui data order
     $query = "UPDATE orders SET order_date='$order_date', order_time='$order_time', total_amount='$total_amount', status='$status' WHERE order_id=$id";
     mysqli_query($mysqli, $query);
 
-    header("Location: list_order.php");
+    header("Location: list_order.php"); // Arahkan ke halaman daftar order setelah berhasil
 }
 
+// Ambil data order berdasarkan ID
 $result = mysqli_query($mysqli, "SELECT * FROM orders WHERE order_id=$id");
 $order = mysqli_fetch_assoc($result);
 ?>

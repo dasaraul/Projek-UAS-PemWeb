@@ -6,11 +6,12 @@ require_once("bwatkonek.php"); // Koneksi ke database
 <html>
 <head>
     <title>Tambah Reservasi</title>
-    <link rel="stylesheet" type="text/css" href="cssnich/cssnya.css"> <!-- Tautkan ke file CSS -->
+    <link rel="stylesheet" type="text/css" href="cssnich/cssnya.css">
 </head>
 <body>
     <div class="navbar">
-                <a href="index.php">Beranda</a>
+        <!-- Navigasi -->
+        <a href="index.php">Beranda</a>
         <a href="list_pelanggan.php">Daftar Pelanggan</a>
         <a href="list_order.php">Daftar Order</a>
         <a href="list_reservasi.php">Daftar Reservasi</a>
@@ -23,52 +24,38 @@ require_once("bwatkonek.php"); // Koneksi ke database
             <a href="login.php">Masuk</a>
         <?php endif; ?>
     </div>
-
-    <div class="container"> <!-- Kontainer utama -->
-        <center>
-            <h1>Tambah Reservasi</h1> <!-- Judul halaman -->
-            <form action="add_reservasi_action.php" method="POST"> <!-- Formulir tambah reservasi -->
-                <table>
-                    <tr>
-                        <td><label for="customer_id">Customer:</label></td>
-                        <td>
-                            <select id="customer_id" name="customer_id" required>
-                                <option value="">--Pilih Customer--</option>
-                                <?php
-                                // Ambil data customer dari database
-                                $query = "SELECT customer_id, first_name, last_name FROM customers";
-                                $result = mysqli_query($mysqli, $query);
-                                while ($row = mysqli_fetch_assoc($result)) {
-                                    echo "<option value='" . $row['customer_id'] . "'>" . $row['first_name'] . " " . $row['last_name'] . "</option>";
-                                }
-                                ?>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label for="reservation_date">Tanggal Reservasi:</label></td>
-                        <td><input type="date" id="reservation_date" name="reservation_date" required></td> <!-- Input tanggal reservasi -->
-                    </tr>
-                    <tr>
-                        <td><label for="reservation_time">Waktu Reservasi:</label></td>
-                        <td><input type="time" id="reservation_time" name="reservation_time" required></td> <!-- Input waktu reservasi -->
-                    </tr>
-                    <tr>
-                        <td><label for="number_of_guests">Jumlah Orang:</label></td>
-                        <td><input type="number" id="number_of_guests" name="number_of_guests" required></td> <!-- Input jumlah orang -->
-                    </tr>
-                    <tr>
-                        <td><label for="special_requests">Permintaan Khusus:</label></td>
-                        <td><input type="text" id="special_requests" name="special_requests"></td> <!-- Input permintaan khusus -->
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td><input type="submit" value="Tambah"></td> <!-- Tombol kirim -->
-                    </tr>
-                </table>
-            </form>
-            <a href="list_reservasi.php">Kembali ke Daftar Reservasi</a> <!-- Tautan kembali -->
-        </center>
+    <div class="container">
+        <h1>Tambah Reservasi</h1>
+        <!-- Form tambah reservasi -->
+        <form action="add_reservasi_action.php" method="POST">
+            <table>
+                <tr>
+                    <td><label for="customer_id">ID Pelanggan:</label></td>
+                    <td><input type="number" id="customer_id" name="customer_id" required></td>
+                </tr>
+                <tr>
+                    <td><label for="reservation_date">Tanggal Reservasi:</label></td>
+                    <td><input type="date" id="reservation_date" name="reservation_date" required></td>
+                </tr>
+                <tr>
+                    <td><label for="reservation_time">Waktu Reservasi:</label></td>
+                    <td><input type="time" id="reservation_time" name="reservation_time" required></td>
+                </tr>
+                <tr>
+                    <td><label for="number_of_guests">Jumlah Tamu:</label></td>
+                    <td><input type="number" id="number_of_guests" name="number_of_guests" required></td>
+                </tr>
+                <tr>
+                    <td><label for="special_requests">Permintaan Khusus:</label></td>
+                    <td><textarea id="special_requests" name="special_requests"></textarea></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" value="Tambah"></td>
+                </tr>
+            </table>
+        </form>
+        <a href="list_reservasi.php">Kembali ke Daftar Reservasi</a>
     </div>
 </body>
 </html>

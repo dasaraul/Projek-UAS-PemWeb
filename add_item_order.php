@@ -1,18 +1,29 @@
 <?php
-require_once("bwatkonek.php");
+require_once("bwatkonek.php"); // Koneksi ke database
 
-if (isset($_POST['submit'])) {
-    $order_id = $_POST['order_id'];
-    $menu_item_id = $_POST['menu_item_id'];
-    $quantity = $_POST['quantity'];
+// Proses hanya jika formulir dikirim
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Escape input untuk mencegah SQL injection
+    $order_id = mysqli_real_escape_string($mysqli, $_POST['order_id']);
+    $menu_item_id = mysqli_real_escape_string($mysqli, $_POST['menu_item_id']);
+    $quantity = mysqli_real_escape_string($mysqli, $_POST['quantity']);
 
-    $query = "INSERT INTO order_items (order_id, menu_item_id, quantity) VALUES ('$order_id', '$menu_item_id', '$quantity')";
-    mysqli_query($mysqli, $query);
-
-    header("Location: list_item_order.php");
+    // Validasi data input
+    if (empty($order_id) || empty($menu_item_id) || empty($quantity)) {
+        echo "Semua kolom wajib diisi.";
+    } else {
+        // Menambahkan item order ke database
+        $query = "INSERT INTO order_items (order_id, menu_item_id, quantity)
+                  VALUES ('$order_id', '$menu_item_id', '$quantity')";
+        if (mysqli_query($mysqli, $query)) {
+            header("Location: list_item_order.php"); // Redirect setelah berhasil
+            exit;
+        } else {
+            echo "Terjadi kesalahan: " . mysqli_error($mysqli);
+        }
+    }
 }
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,20 +33,21 @@ if (isset($_POST['submit'])) {
 <body>
     <div class="container">
         <h1>Tambah Item Order</h1>
-        <form method="POST" action="">
-            <label for="order_id">Order ID:</label>
-            <input type="number" name="order_id" required>
+        <!-- Form tambah item order -->
+        <form method="POST">
+            <label for="order_id">ID Order:</label>
+            <input type="number" id="order_id" name="order_id" required>
             <br>
 
-            <label for="menu_item_id">Menu Item ID:</label>
-            <input type="number" name="menu_item_id" required>
+            <label for="menu_item_id">ID Menu Item:</label>
+            <input type="number" id="menu_item_id" name="menu_item_id" required>
             <br>
 
-            <label for="quantity">Quantity:</label>
-            <input type="number" name="quantity" required>
+            <label for="quantity">Jumlah:</label>
+            <input type="number" id="quantity" name="quantity" required>
             <br>
 
-            <input type="submit" name="submit" value="Tambah">
+            <input type="submit" value="Tambah">
         </form>
     </div>
 </body>

@@ -4,17 +4,20 @@ require_once("bwatkonek.php");
 $id = $_GET['id'];
 
 if (isset($_POST['submit'])) {
+    // Ambil data dari form
     $first_name = $_POST['first_name'];
     $last_name = $_POST['last_name'];
     $email = $_POST['email'];
     $phone_number = $_POST['phone_number'];
 
+    // Query untuk update data pelanggan
     $query = "UPDATE customers SET first_name='$first_name', last_name='$last_name', email='$email', phone_number='$phone_number' WHERE customer_id=$id";
     mysqli_query($mysqli, $query);
 
     header("Location: list_pelanggan.php");
 }
 
+// Query untuk mengambil data pelanggan berdasarkan ID
 $result = mysqli_query($mysqli, "SELECT * FROM customers WHERE customer_id=$id");
 $customer = mysqli_fetch_assoc($result);
 ?>

@@ -3,17 +3,20 @@ session_start();
 require_once("bwatkonek.php");
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Mengambil data dari form dan menghindari SQL injection dengan mysqli_real_escape_string
     $username = mysqli_real_escape_string($mysqli, $_POST['username']);
     $password = mysqli_real_escape_string($mysqli, $_POST['password']);
     $unique_key = mysqli_real_escape_string($mysqli, $_POST['unique_key']);
 
     if ($unique_key == 'tamanich') {
+        // Mengambil data pengguna dari database berdasarkan username
         $result = mysqli_query($mysqli, "SELECT * FROM users WHERE username='$username'");
         $user = mysqli_fetch_assoc($result);
         
         if (password_verify($password, $user['password'])) {
+            // Jika password benar, set session dan redirect ke dashboard
             $_SESSION['loggedin'] = true;
-            $_SESSION['username'] = $username; // Menyimpan username dalam sesi
+            $_SESSION['username'] = $username;
             header('Location: dashboard.php');
             exit;
         } else {
@@ -32,20 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" type="text/css" href="cssnich/cssnya.css">
 </head>
 <body>
-    <div class="navbar">
-                <a href="index.php">Beranda</a>
-        <a href="list_pelanggan.php">Daftar Pelanggan</a>
-        <a href="list_order.php">Daftar Order</a>
-        <a href="list_reservasi.php">Daftar Reservasi</a>
-        <a href="list_menu.php">Daftar Menu</a>
-        <a href="list_order_item.php">Item Order</a>
-        <a href="list_kategori.php">Kategori</a>
-        <?php if (isset($_SESSION['loggedin'])): ?>
-            <a href="logout.php">Keluar</a>
-        <?php else: ?>
-            <a href="login.php">Masuk</a>
-        <?php endif; ?>
-    </div>
+    <?php include("navbar.php"); ?>
 
     <div class="container">
         <center>

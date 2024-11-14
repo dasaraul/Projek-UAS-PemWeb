@@ -1,6 +1,6 @@
 <?php
-session_start(); // Memulai sesi PHP
-require_once("bwatkonek.php"); // Menyertakan file koneksi ke database
+session_start();
+require_once("bwatkonek.php"); // Koneksi ke database
 
 // Mengecek apakah pengguna sudah login
 if (!isset($_SESSION['loggedin'])) {
@@ -8,18 +8,25 @@ if (!isset($_SESSION['loggedin'])) {
     exit;
 }
 
-// Mengecek apakah data dikirim
-if (isset($_POST['nama_kategori']) && isset($_POST['deskripsi'])) {
+// Proses hanya jika data dikirim melalui formulir
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Escape input untuk mencegah SQL injection
     $nama_kategori = mysqli_real_escape_string($mysqli, $_POST['nama_kategori']);
     $deskripsi = mysqli_real_escape_string($mysqli, $_POST['deskripsi']);
 
-    // Query untuk menambah data kategori
-    $query = "INSERT INTO kategori (nama_kategori, deskripsi) VALUES ('$nama_kategori', '$deskripsi')";
-    if (mysqli_query($mysqli, $query)) {
-        header("Location: list_kategori.php"); // Arahkan ke halaman daftar kategori setelah berhasil
-        exit;
+    // Validasi data input
+    if (empty($nama_kategori) || empty($deskripsi)) {
+        echo "Semua kolom wajib diisi.";
     } else {
-        echo "Error: " . mysqli_error($mysqli);
+        // Menambahkan data kategori ke database
+        $query = "INSERT INTO kategori (nama_kategori, deskripsi)
+                  VALUES ('$nama_kategori', '$deskripsi')";
+        if (mysqli_query($mysqli, $query)) {
+            header("Location: list_kategori.php"); // Redirect setelah berhasil
+            exit;
+        } else {
+            echo "Terjadi kesalahan: " . mysqli_error($mysqli);
+        }
     }
 }
 ?>

@@ -13,19 +13,7 @@ $reservationsResult = mysqli_query($mysqli, "SELECT * FROM reservations ORDER BY
     <link rel="stylesheet" type="text/css" href="cssnich/cssnya.css"> <!-- Link ke file CSS -->
 </head>
 <body>
-    <div class="navbar">
-    <a href="index.php">Beranda</a>
-        <a href="list_pelanggan.php">Daftar Pelanggan</a>
-        <a href="list_order.php">Daftar Order</a>
-        <a href="list_reservasi.php">Daftar Reservasi</a>
-        <a href="list_menu.php">Daftar Menu</a>
-        <a href="list_order_item.php">Order Item</a> <!-- Link ke halaman daftar menu -->
-        <?php if (isset($_SESSION['loggedin'])): ?> <!-- Cek apakah pengguna sudah login -->
-            <a href="logout.php">Keluar</a> <!-- Link untuk logout -->
-        <?php else: ?>
-            <a href="login.php">Masuk</a> <!-- Link untuk login jika belum login -->
-        <?php endif; ?>
-    </div>
+    <?php include("navbar.php"); ?>
 
     <div class="container">
         <h2>Daftar Reservasi</h2> <!-- Judul halaman -->
@@ -51,7 +39,7 @@ $reservationsResult = mysqli_query($mysqli, "SELECT * FROM reservations ORDER BY
                 echo "<td>".$res['number_of_guests']."</td>"; // Jumlah tamu
                 echo "<td>".$res['special_requests']."</td>"; // Permintaan khusus
                 if (isset($_SESSION['loggedin'])) { // Cek jika pengguna sudah login
-                    echo "<td><a href='edit_reservasi.php?id=".$res['reservation_id']."'>Edit</a> | <a href='delete_reservasi.php?id=".$res['reservation_id']."' onclick='return confirm(\"Yakin ingin menghapus?\")'>Hapus</a></td>"; // Link untuk edit dan hapus
+                    echo "<td><a href='edit_reservasi.php?id=".['reservation_id']."'>Edit</a> | <a href='delete_reservasi.php?id=".['reservation_id']."' onclick='return confirm(\"Yakin ingin menghapus?\")'>Hapus</a></td>"; // Link untuk edit dan hapus
                 }
                 echo "</tr>"; // Akhir baris tabel
             }

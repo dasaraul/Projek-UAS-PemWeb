@@ -13,19 +13,7 @@ $ordersResult = mysqli_query($mysqli, "SELECT * FROM orders ORDER BY order_id DE
     <link rel="stylesheet" type="text/css" href="cssnich/cssnya.css"> <!-- Link ke CSS -->
 </head>
 <body>
-    <div class="navbar">
-    <a href="index.php">Beranda</a>
-        <a href="list_pelanggan.php">Daftar Pelanggan</a>
-        <a href="list_order.php">Daftar Order</a>
-        <a href="list_reservasi.php">Daftar Reservasi</a>
-        <a href="list_menu.php">Daftar Menu</a>
-        <a href="list_order_item.php">Order Item</a>
-        <?php if (isset($_SESSION['loggedin'])): ?>
-            <a href="logout.php">Keluar</a>
-        <?php else: ?>
-            <a href="login.php">Masuk</a>
-        <?php endif; ?>
-    </div>
+    <?php include("navbar.php"); ?>
 
     <div class="container">
         <h2>Daftar Order</h2>
@@ -50,7 +38,7 @@ $ordersResult = mysqli_query($mysqli, "SELECT * FROM orders ORDER BY order_id DE
                 echo "<td>".$res['total_amount']."</td>";
                 echo "<td>".$res['status']."</td>";
                 if (isset($_SESSION['loggedin'])) {
-                    echo "<td><a href='edit_order.php?id=".$res['order_id']."'>Edit</a> | <a href='delete_order.php?id=".$res['order_id']."' onclick='return confirm(\"Yakin ingin menghapus?\")'>Hapus</a></td>";
+                    echo "<td><a href='edit_order.php?id=".['order_id']."'>Edit</a> | <a href='delete_order.php?id=".['order_id']."' onclick='return confirm(\"Yakin ingin menghapus?\")'>Hapus</a></td>";
                 }
                 echo "</tr>";
             }

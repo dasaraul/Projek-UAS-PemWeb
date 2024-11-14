@@ -50,7 +50,7 @@ $kategoriResult = mysqli_query($mysqli, "SELECT * FROM kategori ORDER BY kategor
                 echo "<td>".$res['nama_kategori']."</td>"; // Menampilkan nama kategori
                 echo "<td>".$res['deskripsi']."</td>"; // Menampilkan deskripsi
                 if (isset($_SESSION['loggedin'])) {
-                    echo "<td><a href='edit_kategori.php?id=".$res['kategori_id']."'>Edit</a> | <a href='delete_kategori.php?id=".$res['kategori_id']."' onclick='return confirm(\"Yakin ingin menghapus?\")'>Hapus</a></td>";
+                    echo "<td><a href='edit_kategori.php?id=".['kategori_id']."'>Edit</a> | <a href='delete_kategori.php?id=".['kategori_id']."' onclick='return confirm(\"Yakin ingin menghapus?\")'>Hapus</a></td>";
                 }
                 echo "</tr>";
             }

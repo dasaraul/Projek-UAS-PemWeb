@@ -13,20 +13,7 @@ $orderItemsResult = mysqli_query($mysqli, "SELECT * FROM order_items ORDER BY or
     <link rel="stylesheet" type="text/css" href="cssnich/cssnya.css"> <!-- Memasukkan stylesheet untuk styling halaman -->
 </head>
 <body>
-    <div class="navbar"> <!-- Menampilkan menu navigasi -->
-        <a href="index.php">Beranda</a>
-        <a href="list_pelanggan.php">Daftar Pelanggan</a>
-        <a href="list_order.php">Daftar Order</a>
-        <a href="list_reservasi.php">Daftar Reservasi</a>
-        <a href="list_menu.php">Daftar Menu</a>
-        <a href="list_order_item.php">Item Order</a>
-        <a href="list_kategori.php">Kategori</a>
-        <?php if (isset($_SESSION['loggedin'])): ?> <!-- Mengecek apakah user sudah login -->
-            <a href="logout.php">Keluar</a> <!-- Jika sudah login, tampilkan opsi logout -->
-        <?php else: ?>
-            <a href="login.php">Masuk</a> <!-- Jika belum login, tampilkan opsi login -->
-        <?php endif; ?>
-    </div>
+    <?php include("navbar.php"); ?> <!-- Memasukkan file navbar.php untuk menampilkan menu navigasi -->
 
     <div class="container"> <!-- Membungkus konten utama -->
         <h1>Daftar Item Order</h1>
@@ -52,7 +39,7 @@ $orderItemsResult = mysqli_query($mysqli, "SELECT * FROM order_items ORDER BY or
                 echo "<td>".$res['quantity']."</td>"; // Menampilkan jumlah item
                 echo "<td>".$res['price']."</td>"; // Menampilkan harga
                 if (isset($_SESSION['loggedin'])) { // Jika user sudah login, tampilkan aksi edit dan hapus
-                    echo "<td><a href='edit_order_item.php?id=".$res['order_item_id']."'>Edit</a> | <a href='delete_order_item.php?id=".$res['order_item_id']."' onclick='return confirm(\"Yakin ingin menghapus?\")'>Hapus</a></td>";
+                    echo "<td><a href='edit_order_item.php?id=".['order_item_id']."'>Edit</a> | <a href='delete_order_item.php?id=".['order_item_id']."' onclick='return confirm(\"Yakin ingin menghapus?\")'>Hapus</a></td>";
                 }
                 echo "</tr>";
             }
